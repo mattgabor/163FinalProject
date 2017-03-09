@@ -72,6 +72,17 @@ function initializeStateMapOverview(){
     });
   }
 
+
+
+  // d3.queue()
+  //   .defer(d3.json, "../data/us-10m.v1.json")
+  //   //.defer(d3.tsv, "unemployment.tsv", function(d) { unemployment.set(d.id, +d.rate); })
+  //   .await(ready);
+
+
+  //var q = d3.queue();
+  // var q = d3.queue();
+
   d3.json("../data/us-10m.v1.json", function (error, us){
     var numStates = 0;
     var statesSelected = new Set();
