@@ -50,20 +50,17 @@ label {
 /***** road styling *****/
 #leftRoad {
   height: 600px;
-  margin-right: 30px;
+  /*margin-right: 30px;*/
 }
 
 #rightRoad {
   height: 600px;
-  margin-left: 30px;
+  /*margin-left: 30px;*/
 }
 
-#roadContainer {
-  width: 850px;
-  margin: 0 auto;
-  margin-bottom: 50px;
-}
 
 #roadViz {
-  border: 2px;
+  border: 3px solid black;
+  width: 1000px;
+  margin: 0 auto;
 }
