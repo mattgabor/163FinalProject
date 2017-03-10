@@ -55,7 +55,7 @@ function initializeStateMapOverview(){
   stateName["72"]= "Puerto Rico";
 
 
-var colorScale = d3.scale.linear().domain([5,50]).range(["white","#4169e1"]);
+var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"]);
 
   // var color = d3.scale.threshold()
   //   .domain(d3.range(1, 40))
@@ -84,15 +84,23 @@ var colorScale = d3.scale.linear().domain([5,50]).range(["white","#4169e1"]);
   d3.queue()
     .defer(d3.json, "../data/us-10m.v1.json")
     .defer(d3.csv, "../data/bad-drivers138.csv", function(d) {
+      console.log(d.state);
+      console.log(d.geoID);
+      console.log(d.totalNumber);
       fatalities.set(d.geoID, +d.totalNumber); })
     .await(ready);
 
 
   function ready(error, us){
+
+    // for(var i=0;i<51;i++){
+    //   console.log(colorScale(i));
+    // }
+
     // console.log(us);
     // console.table(us);
     //console.log("fatalities");
-    //console.table(fatalities);
+    console.table(fatalities);
     if(error){
       console.log("error");
     }
@@ -108,17 +116,17 @@ var colorScale = d3.scale.linear().domain([5,50]).range(["white","#4169e1"]);
       .data(topojson.feature(us, us.objects.states).features)
       .enter().append("path")
       .attr("fill", function(d) {
-        console.log("TotalNumber");
-        //console.log(d.id);})
-        //console.log(colorScale(fatalities.get(d.id)));})
-        return colorScale(fatalities.get(d.id)));})
-      //.attr("fill", "gray")
+        // console.log("TotalNumber");
+        // console.log(fatalities.get(d.id));
+        // console.log(colorScale(fatalities.get(d.id)));
+        return colorScale(fatalities.get(d.id));})
       .attr("d", path)
       .on('click', function(d,i){
         //if already toggled, untoggle
-        if(d3.select(this).attr("fill") == "#003399"){
+        if(d3.select(this).attr("fill") == "#FFA500"){
           d3.select(this)
-          .attr("fill", "gray");
+          .attr("fill", function(d) {
+          return colorScale(fatalities.get(d.id));})
           statesSelected.delete(stateName[d.id]);
           numStates--;
         //if not toggled, check if two state are already selected
@@ -128,7 +136,7 @@ var colorScale = d3.scale.linear().domain([5,50]).range(["white","#4169e1"]);
         }else{
           numStates++;
           d3.select(this)
-          .attr("fill", "#003399");
+          .attr("fill", "#FFA500");
           statesSelected.add(stateName[d.id]);
           //console.log(d.id);
           //console.log(stateName[d.id]);
@@ -139,7 +147,7 @@ var colorScale = d3.scale.linear().domain([5,50]).range(["white","#4169e1"]);
 
       })
       .on('mouseover', function(d,i){
-        if(d3.select(this).attr("fill") == "#003399"){
+        if(d3.select(this).attr("fill") == "#FFA500"){
           //stay the same
         }else{
           d3.select(this)
@@ -147,11 +155,12 @@ var colorScale = d3.scale.linear().domain([5,50]).range(["white","#4169e1"]);
         }
       })
       .on('mouseout', function(d,i){
-        if(d3.select(this).attr("fill") == "#003399"){
+        if(d3.select(this).attr("fill") == "#FFA500"){
           //stay the same
         }else{
           d3.select(this)
-          .attr("fill", "gray");
+          .attr("fill", function(d) {
+          return colorScale(fatalities.get(d.id));});
         }
 
       });
