@@ -2,4 +2,4 @@
 // drawCars("data/file.csv");
 // drawScatter("data/file.csv");
 drawRoadAssets();
-drawRoadViz("data/bad-drivers138.csv");
+loadRoadVizData("data/bad-drivers138.csv", "data/carPositions.csv");
