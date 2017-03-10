@@ -64,13 +64,14 @@ function drawCars(causeData, carData) {
     d.x = +d.x;
     d.y = +d.y;
 
+    var carG = roadSvgContainer.append("g");
     // create and position car
-    var car = roadSvgContainer.append("image")
+    var car = carG.append("image")
       .attr("xlink:href", "img/whiteCar.png")
       .attr("height", 50)
       .attr("x", d.x)
       .attr("y", d.y)
-      .attr("id", "car" + (i + 1))
+      .attr("id", "car" + (i + 1));
   });
 
   var path = roadSvgContainer.append("path")
@@ -80,7 +81,6 @@ function drawCars(causeData, carData) {
         .tension(0) // Catmull–Rom
         .interpolate("cardinal")
     )
-    .attr("stroke", "red");
 
   for (var i = 6; i < 11; i++) {
     var carNum = "#car" + i;
@@ -98,6 +98,7 @@ function carTransition(path, car, delay) {
     .delay(delay)
     .duration(3000)
     .attrTween("transform", translateAlong(path.node()))
+    // .attr("transform", "rotate(30)")
     // .each("end", carTransition);
 }
 
