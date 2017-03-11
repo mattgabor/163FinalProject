@@ -46,9 +46,39 @@ function loadRoadVizData(causeFile, carFile) {
 function drawCars(causeData, carData) {
   var roadSvgContainer = d3.select("#roadViz").selectAll("svg");
 
-  var points = [
-  [0, 0],
-  [0, 460]
+  var path6 = [
+    [0, 0],
+    [0, 170],
+    [-150, 170],
+    [-150, 10]
+  ];
+
+  var path1 = [
+    [0, 0],
+    [0, 200],
+    [-100, 230],
+    [-100, 70]
+  ];
+
+  var path7 = [
+    [0, 0],
+    [0, 170],
+    [-195, 170],
+    [-195, 70]
+  ];
+
+  var path2 = [
+    [0, 0],
+    [0, 200],
+    [-145, 230],
+    [-145, 130]
+  ];
+
+  var path8 = [
+    [0, 0],
+    [0, 130],
+    [-190, 170],
+    [-190, 135]
   ];
 
   causeData.forEach(function(d) {
@@ -64,7 +94,8 @@ function drawCars(causeData, carData) {
     d.x = +d.x;
     d.y = +d.y;
 
-    var carG = roadSvgContainer.append("g");
+    var carG = roadSvgContainer.append("g")
+      .attr("id", "gcar" + (i + 1));
     // create and position car
     var car = carG.append("image")
       .attr("xlink:href", "img/whiteCar.png")
@@ -74,21 +105,74 @@ function drawCars(causeData, carData) {
       .attr("id", "car" + (i + 1));
   });
 
-  var path = roadSvgContainer.append("path")
-    .data([points])
+  var path_6 = roadSvgContainer.append("path")
+    .data([path6])
+    // .attr("stroke", "red")
+    // .attr("stroke-width", 3)
     .attr("d",
       d3.svg.line()
         .tension(0) // Catmull–Rom
-        .interpolate("cardinal")
+        .interpolate("basis")
     )
 
-  for (var i = 6; i < 11; i++) {
-    var carNum = "#car" + i;
-    console.log(carNum);
-    var testCar = d3.select(carNum);
-    var delay = i * 100;
-    carTransition(path, testCar, delay)
-  }
+  var path_1 = roadSvgContainer.append("path")
+    .data([path1])
+    .attr("d",
+      d3.svg.line()
+        .tension(0) // Catmull–Rom
+        .interpolate("basis")
+    )
+
+    var path_7 = roadSvgContainer.append("path")
+      .data([path7])
+      .attr("d",
+        d3.svg.line()
+          .tension(0) // Catmull–Rom
+          .interpolate("basis")
+      )
+
+
+      var path_2 = roadSvgContainer.append("path")
+        .data([path2])
+        .attr("d",
+          d3.svg.line()
+            .tension(0) // Catmull–Rom
+            .interpolate("basis")
+        )
+
+        var path_8 = roadSvgContainer.append("path")
+          .data([path8])
+          .attr("d",
+            d3.svg.line()
+              .tension(0) // Catmull–Rom
+              .interpolate("basis")
+          )
+
+  var testCarG6 = d3.select("#gcar6");
+  var testCarG1 = d3.select("#gcar1");
+  var testCarG2 = d3.select("#gcar2");
+  var testCarG7 = d3.select("#gcar7");
+  var testCarG8 = d3.select("#gcar8");
+  carTransition(path_6, testCarG6, 0);
+  carTransition(path_1, testCarG1, 300);
+  carTransition(path_7, testCarG7, 1200);
+  carTransition(path_2, testCarG2, 900);
+  carTransition(path_8, testCarG8, 600);
+
+
+  // var testCar = d3.select("#car6")
+    // .transition()
+    // .delay(0)
+    // .duration(3000)
+    // .attr("transform", "translate(0, 0) rotate(50)");
+  // console.log(testCar)
+  // for (var i = 6; i < 11; i++) {
+  //   var carNum = "#car" + i;
+  //   console.log(carNum);
+  //   var testCar = d3.select(carNum);
+  //   var delay = i * 100;
+  //   carTransition(path, testCar, delay)
+  // }
 } // end drawCars
 
 
