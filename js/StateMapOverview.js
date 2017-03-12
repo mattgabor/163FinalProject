@@ -62,8 +62,8 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
   //   .range(d3.schemeBlues);
 
   var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 800 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
+    width = 1024 - margin.left - margin.right,
+    height = 786 - margin.top - margin.bottom;
 
   var svg = d3.select("#StateMapOverview").append("svg")
    .attr("width", width)
@@ -84,9 +84,9 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
   d3.queue()
     .defer(d3.json, "../data/us-10m.v1.json")
     .defer(d3.csv, "../data/bad-drivers138.csv", function(d) {
-      console.log(d.state);
-      console.log(d.geoID);
-      console.log(d.totalNumber);
+      //console.log(d.state);
+      //console.log(d.geoID);
+      //console.log(d.totalNumber);
       fatalities.set(d.geoID, +d.totalNumber); })
     .await(ready);
 
@@ -100,7 +100,7 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
     // console.log(us);
     // console.table(us);
     //console.log("fatalities");
-    console.table(fatalities);
+    //console.table(fatalities);
     if(error){
       console.log("error");
     }
@@ -109,7 +109,7 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
     var statesSelected = new Set();
     //console.log(statesSelected);
 
-    var path = d3.geo.path().projection(scale(.8,width,height))
+    var path = d3.geo.path().projection(scale(1,width,height))
     svg.append("g")
       .attr("class", "states")
       .selectAll("path")
