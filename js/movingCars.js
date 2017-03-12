@@ -152,6 +152,9 @@ function getCarCount(stateData) {
 }
 
 function setDestinations(stateNum, causeData, orderOfExecution) {
+  var delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+  var durations = [3000, 4000, 5000, 6000, 7000, 6000, 7000, 8000, 9000, 10000]
+
   var stateCarCount = causeData[stateNum].carCount;
   // console.log(orderOfExecution)
   var allExecutions = [orderOfExecution[0], orderOfExecution[1], orderOfExecution[2]];
@@ -162,13 +165,13 @@ function setDestinations(stateNum, causeData, orderOfExecution) {
   var categoryMaxCars = [5, 3, 2];
   var stateCategoryCounts = [stateCarCount.speed, stateCarCount.alc, stateCarCount.dist];
 
+  var loopCount = 0;
   // loop through each type of fatality
   for (var i = 0; i < 3; i++) {
     // loop through potential speeding fatalities
     for (var j = 0; j < categoryMaxCars[i]; j++) {
       var currentCar = allExecutions[i][j];
       var carToMove = d3.select("#gcar" + currentCar)
-      console.log(stateCategoryCounts[i])
 
       if (j <= stateCategoryCounts[i]) {
         var alongPath = d3.select("#path" + currentCar);
@@ -180,7 +183,8 @@ function setDestinations(stateNum, causeData, orderOfExecution) {
           var alongPath = d3.select("#straightPathSecondRow");
         }
       }
-      moveCar(carToMove, alongPath, 5000, 0);
-    }
+      moveCar(carToMove, alongPath, durations[loopCount], delays[loopCount]);
+      loopCount++;
+    } // end fatality count loop
   } // end fatality type loop
 } // end setDestinations()
