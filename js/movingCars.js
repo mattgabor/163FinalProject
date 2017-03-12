@@ -46,7 +46,7 @@ function loadRoadVizData(causeFile, carFile) {
 function drawCars(causeData, carData) {
   var roadSvgContainer = d3.select("#roadViz").selectAll("svg");
 
-  var straightPath = [[0,0], [0, ]]
+  var orderOfExecution = [[6, 1, 7, 2, 8], [3, 9, 4], [5, 10]];
 
   causeData.forEach(function(d) {
     d.totalNumber = +d.totalNumber;
@@ -58,13 +58,13 @@ function drawCars(causeData, carData) {
 
   carData.forEach(function(d, i) {
     d.carNum = +d.carNum;
+    d.row = +d.row;
     d.x = +d.x;
     d.y = +d.y;
     d.path = [[+d.pos1x, +d.pos1y],
               [+d.pos2x, +d.pos2y],
               [+d.pos3x, +d.pos3y],
               [+d.pos4x, +d.pos4y]];
-    console.log(d.path)
 
     var carG = roadSvgContainer.append("g")
       .attr("id", "gcar" + (i + 1));
@@ -89,19 +89,22 @@ function drawCars(causeData, carData) {
       .attr("id", "path" + (i + 1));
   }); // end carData foreach
 
-  var testCarG6 = d3.select("#gcar6");
-  var testCarG1 = d3.select("#gcar1");
-  var testCarG2 = d3.select("#gcar2");
-  var testCarG7 = d3.select("#gcar7");
-  var testCarG8 = d3.select("#gcar8");
+  roadSvgContainer.append("path")
+    .data([[[0,0], [0, 518]]])
+    .attr("d",
+      d3.svg.line()
+        .tension(0)
+        .interpolate("basis"))
+    .attr("id", "straightPathFirstRow");
 
-  var path_6 = d3.select("#path6")
+  roadSvgContainer.append("path")
+    .data([[[0,0], [0, 460]]])
+    .attr("d",
+      d3.svg.line()
+        .tension(0)
+        .interpolate("basis"))
+    .attr("id", "straightPathSecondRow");
 
-  carTransition(path_6, testCarG6, 3000, 0);
-  carTransition(path_1, testCarG1, 5000, 300);
-  carTransition(path_7, testCarG7, 2000, 1200);
-  carTransition(path_2, testCarG2, 3000, 900);
-  carTransition(path_8, testCarG8, 5000, 600);
 
   // FIXME: Make rotation work
 
@@ -112,11 +115,13 @@ function drawCars(causeData, carData) {
     // .attr("transform", function(d) {
       // console.log(d)
     // })
+
+  setDestinations(44, causeData, orderOfExecution);
 } // end drawCars
 
 
 
-function carTransition(path, car, duration, delay) {
+function moveCar(car, path, duration, delay) {
   car.transition()
     .delay(delay)
     .duration(duration)
@@ -145,3 +150,37 @@ function getCarCount(stateData) {
 
   return carCount;
 }
+
+function setDestinations(stateNum, causeData, orderOfExecution) {
+  var stateCarCount = causeData[stateNum].carCount;
+  // console.log(orderOfExecution)
+  var allExecutions = [orderOfExecution[0], orderOfExecution[1], orderOfExecution[2]];
+  // var speedExec = orderOfExecution[0];
+  // var alcExec = orderOfExecution[1];
+  // var distExec = orderOfExecution[2];
+
+  var categoryMaxCars = [5, 3, 2];
+  var stateCategoryCounts = [stateCarCount.speed, stateCarCount.alc, stateCarCount.dist];
+
+  // loop through each type of fatality
+  for (var i = 0; i < 3; i++) {
+    // loop through potential speeding fatalities
+    for (var j = 0; j < categoryMaxCars[i]; j++) {
+      var currentCar = allExecutions[i][j];
+      var carToMove = d3.select("#gcar" + currentCar)
+      console.log(stateCategoryCounts[i])
+
+      if (j <= stateCategoryCounts[i]) {
+        var alongPath = d3.select("#path" + currentCar);
+      } else {
+        // check how far down to go
+        if (currentCar < 5) {
+          var alongPath = d3.select("#straightPathFirstRow");
+        } else {
+          var alongPath = d3.select("#straightPathSecondRow");
+        }
+      }
+      moveCar(carToMove, alongPath, 5000, 0);
+    }
+  } // end fatality type loop
+} // end setDestinations()
