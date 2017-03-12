@@ -18,12 +18,12 @@ function drawRoadAssets() {
     .attr("y", 80)
     .attr("id", "leftRoad")
 
-  var rightRoad = roadSvgContainer
-    .append("image")
-    .attr("xlink:href", "img/rightRoad.png")
-    .attr("x", 520)
-    .attr("y", 80)
-    .attr("id", "rightRoad")
+  // var rightRoad = roadSvgContainer
+  //   .append("image")
+  //   .attr("xlink:href", "img/rightRoad.png")
+  //   .attr("x", 520)
+  //   .attr("y", 80)
+  //   .attr("id", "rightRoad")
 }
 
 // loads data from both CSVs
