@@ -122,6 +122,7 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
         return colorScale(fatalities.get(d.id));})
       .attr("d", path)
       .on('click', function(d,i){
+        updateTimeline(stateName[d.id]);
         //if already toggled, untoggle
         if(d3.select(this).attr("fill") == "#FFA500"){
           d3.select(this)

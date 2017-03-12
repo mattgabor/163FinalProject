@@ -12,12 +12,31 @@
   </head>
 
   <body>
-
-    <div id="StateMapOverview"></div>
-    <div id="timeline"></div>
+    <div class="container">
+      <div class="row">
+        <div id="StateMapOverview"></div>
+      </div>
+      <div class="row">
+        <div class="col">
+          leftDropdown
+        </div>
+        <div class="col">
+          rightDropdown
+        </div>
+      </div>
+      <div class="row">
+        <div id = leftTimeline class="col">
+          leftTimeline
+        </div>
+        <div id = rightTimeline class="col">
+          rightTimeline
+        </div>
+      </div>
+    </div>
 
     <!-- External Libraries -->
     <script src="lib/d3.v3.min.js"></script>
+    <script src="lib/d3-tip.js"></script>
     <script src="https://d3js.org/d3-queue.v3.min.js"></script>
     <script src="lib/jquery-3.1.1.min.js"></script>
 
