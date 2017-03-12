@@ -97,8 +97,8 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
     //   console.log(colorScale(i));
     // }
 
-    // console.log(us);
-    // console.table(us);
+    //console.log(us);
+    //console.table(us);
     //console.log("fatalities");
     //console.table(fatalities);
     if(error){

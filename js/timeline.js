@@ -1,9 +1,65 @@
+function getRowForState(state){
+  if(state == "Alabama"){return 0;}
+  if(state == "Alaska"){return 1;}
+  if(state == "Arizona"){return 2;}
+  if(state == "Arkansas"){return 3;}
+  if(state == "California"){return 4;}
+  if(state == "Colorado"){return 5;}
+  if(state == "Connecticut"){return 6;}
+  if(state == "Delaware"){return 7;}
+  if(state == "District of Columbia"){return 8;}
+  if(state == "Florida"){return 9;}
+  if(state == "Georgia"){return 10;}
+  if(state == "Hawaii"){return 11;}
+  if(state == "Idaho"){return 12;}
+  if(state == "Illinois"){return 13;}
+  if(state == "Indiana"){return 14;}
+  if(state == "Iowa"){return 15;}
+  if(state == "Kansas"){return 16;}
+  if(state == "Kentucky"){return 17;}
+  if(state == "Louisiana"){return 18;}
+  if(state == "Maine"){return 19;}
+  if(state == "Maryland"){return 20;}
+  if(state == "Massachusetts"){return 21;}
+  if(state == "Michigan"){return 22;}
+  if(state == "Minnesota"){return 23;}
+  if(state == "Mississippi"){return 24;}
+  if(state == "Missouri"){return 25;}
+  if(state == "Montana"){return 26;}
+  if(state == "Nebraska"){return 27;}
+  if(state == "Nevada"){return 28;}
+  if(state == "New Hampshire"){return 29;}
+  if(state == "New Jersey"){return 30;}
+  if(state == "New Mexico"){return 31;}
+  if(state == "New York"){return 32;}
+  if(state == "North Carolina"){return 33;}
+  if(state == "North Dakota"){return 34;}
+  if(state == "Ohio"){return 35;}
+  if(state == "Oklahoma"){return 36;}
+  if(state == "Oregon"){return 37;}
+  if(state == "Pennsylvania"){return 38;}
+  if(state == "Rhode Island"){return 39;}
+  if(state == "South Carolina"){return 40;}
+  if(state == "South Dakota"){return 41;}
+  if(state == "Tennessee"){return 42;}
+  if(state == "Texas"){return 43;}
+  if(state == "Utah"){return 44;}
+  if(state == "Vermont"){return 45;}
+  if(state == "Virginia"){return 46;}
+  if(state == "Washington"){return 47;}
+  if(state == "West Virginia"){return 48;}
+  if(state == "Wisconsin"){return 49;}
+  if(state == "Wyoming"){return 50;}
+  if(state == "USA"){return 51;}
+}
+
 function initializeTimeline(){
+  defaultState = "USA";
 
   //dummy data for now
-  var statesSelected = new Set();
-  statesSelected.add("California");
-  statesSelected.add("Texas");
+  // var statesSelected = new Set();
+  // statesSelected.add("California");
+  // statesSelected.add("Texas");
 
 
 
@@ -12,80 +68,46 @@ function initializeTimeline(){
     height = 786 - margin.top - margin.bottom;
 
 
-d3.csv("../data/timelineTransposed.csv", function(error, data) {
-  if (error){console.log("error");}
-  var currentState = d3.keys(data[0]).filter(function(key) { return (key == "California"); });
-  console.table(currentState);
-});
-
 d3.csv("../data/timeline.csv", function(error, data) {
+
+  var dataTest = [
+    {name: 'rect1', value: 50},
+    {name: 'rect2', value: 75},
+    {name: 'rect3', value: 100},
+    {name: 'rect4', value: 150}
+  ];
+
+  console.log(dataTest);
 
   if (error) throw error;
   console.log("Inside csv for timeline data")
   //
-  var currentState = d3.keys(data[0]).filter(function(key) { return (key == "California"); });
-  console.log(currentState);
+  // var currentState = d3.keys(data[0]).filter(function(key) { return (key == "California"); });
+  // console.log(currentState);
+  console.log(getRowForState(defaultState));
+  currentStateData = data[getRowForState(defaultState)];
+  console.log(currentStateData);
 
-  //console.log(data);
-  data.forEach(function(d) {
-    if(d.State == "USA"){
-      d.y1994 = +d.y1994;
-      d.y1995 = +d.y1995;
-      d.y1996 = +d.y1996;
-      d.y1997 = +d.y1997;
-      d.y1998 = +d.y1998;
-      d.y1999 = +d.y1999;
-      d.y2000 = +d.y2000;
-      d.y2001 = +d.y2001;
-      d.y2002 = +d.y2002;
-      d.y2003 = +d.y2003;
-      d.y2004 = +d.y2004;
-      d.y2005 = +d.y2005;
-      d.y2006 = +d.y2006;
-      d.y2007 = +d.y2007;
-      d.y2008 = +d.y2008;
-      d.y2009 = +d.y2009;
-      d.y2010 = +d.y2010;
-      d.y2011 = +d.y2011;
-      d.y2012 = +d.y2012;
-      d.y2013 = +d.y2013;
-      d.y2014 = +d.y2014;
-      //console.log(d);
-    }
+  var leftYPos = 0;
+  var widthScale = d3.scale.linear().domain([.5,3]).range();
+  var middle = width/2;
 
-    if(d.State == "California"){
-      d.y1994 = +d.y1994;
-      d.y1995 = +d.y1995;
-      d.y1996 = +d.y1996;
-      d.y1997 = +d.y1997;
-      d.y1998 = +d.y1998;
-      d.y1999 = +d.y1999;
-      d.y2000 = +d.y2000;
-      d.y2001 = +d.y2001;
-      d.y2002 = +d.y2002;
-      d.y2003 = +d.y2003;
-      d.y2004 = +d.y2004;
-      d.y2005 = +d.y2005;
-      d.y2006 = +d.y2006;
-      d.y2007 = +d.y2007;
-      d.y2008 = +d.y2008;
-      d.y2009 = +d.y2009;
-      d.y2010 = +d.y2010;
-      d.y2011 = +d.y2011;
-      d.y2012 = +d.y2012;
-      d.y2013 = +d.y2013;
-      d.y2014 = +d.y2014;
-      //console.log(d);
-    }
+  var leftSvg = d3.select("#timeline")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  leftSvg.selectAll("rect")
+    .data(dataTest)
+    .enter().append("rect")
+    .attr("x",0 )
+    .attr("y", function(){leftYPos = leftYPos+25; return leftYPos;})
+    .attr("width", function(d){return d.value})
+    .attr("height", 20);
 
   });
 
-  var middle = width/2;
 
-  var leftSvg = d3.select( "#timeline" )
-    .append( "svg" )
-    .attr( "width", width )
-    .attr( "height", height );
 
     // leftSvg.selectAll("circle")
     // .data(data)
@@ -94,64 +116,8 @@ d3.csv("../data/timeline.csv", function(error, data) {
     //   .attr("cy", function(d) { return d.y2012*200; })
     //   .attr("r", 2);
 
-    var leftYPos = 0;
-    leftSvg.selectAll("rect")
-    .data(data)
-    .enter().append("rect")
-    .attr("x",0 )
-    .attr("y", function(){leftYPos = leftYPos+10; return leftYPos;})
-    .attr("width", function(d) { return d.y1994*100; })
-    .attr("height", 10);
 
 
 
-
-
-
-
-
-
-  var widthScale = d3.scale.linear().domain([.5,3]).range();
-
-  //
-  // // Scale the range of the data
-  // x.domain(d3.extent(data, function(d) { return d.year; }));
-  // var max = d3.max(data, function(d) {
-  //   //console.log(d.currentValue[0]);
-  //   return d.currentValue[0];})
-  // y.domain([0,max + .2*max]);
-  //
-  // // define the line
-  // var valuelineUpdate = d3.line()
-  //     .x(function(d) { return x(d.year); })
-  //     .y(function(d) { return y(d.currentValue); });
-  //
-  //
-  // //svg.selectAll("g").exit().remove()
-  // g.selectAll(".line")
-  //   .data([data])
-  //   .transition().duration(300)
-  //   .attr("d", valuelineUpdate);
-  //
-  // g.selectAll("circle")
-  //   .data(data)
-  //   .transition().duration(325)
-  //   .attr("cx", function(d) { return x(d.year); })
-  //   .attr("cy", function(d) { return y(d.currentValue); });
-  //
-  //   function dotClicked(d,circle){
-  //     if(circle.attr("fill") == "red"){
-  //       circle.attr("fill","black");
-  //     }else{
-  //       circle.attr("fill","red");
-  //     }
-  //   }
-  //
-  // g.selectAll(".yAxis").call(d3.axisLeft(y));
-  //
-  // g.selectAll(".lcLabel")
-  //   .text(category);
-
-});
 
 }
