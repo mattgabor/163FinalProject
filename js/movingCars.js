@@ -153,11 +153,11 @@ function drawCars(causeData, carData) {
   var testCarG2 = d3.select("#gcar2");
   var testCarG7 = d3.select("#gcar7");
   var testCarG8 = d3.select("#gcar8");
-  carTransition(path_6, testCarG6, 0);
-  carTransition(path_1, testCarG1, 300);
-  carTransition(path_7, testCarG7, 1200);
-  carTransition(path_2, testCarG2, 900);
-  carTransition(path_8, testCarG8, 600);
+  carTransition(path_6, testCarG6, 10000, 0);
+  carTransition(path_1, testCarG1, 5000, 300);
+  carTransition(path_7, testCarG7, 2000, 1200);
+  carTransition(path_2, testCarG2, 3000, 900);
+  carTransition(path_8, testCarG8, 5000, 600);
 
 
   // var testCar = d3.select("#car6")
@@ -177,10 +177,10 @@ function drawCars(causeData, carData) {
 
 
 
-function carTransition(path, car, delay) {
+function carTransition(path, car, duration, delay) {
   car.transition()
     .delay(delay)
-    .duration(3000)
+    .duration(duration)
     .attrTween("transform", translateAlong(path.node()))
     // .attr("transform", "rotate(30)")
     // .each("end", carTransition);
