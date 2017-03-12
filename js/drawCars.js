@@ -1,50 +1,6 @@
-// Initial viz setup
-var roadMargin = {top: 0, right: 10, bottom: 10, left: 10},
-    roadWidth = 500 - roadMargin.left - roadMargin.right,
-    roadHeight = 700 - roadMargin.top - roadMargin.bottom;
+function drawCars(causeData, carData, svgSelector, stateCode) {
 
-function drawRoadAssets() {
-
-  var roadSvgContainer = d3.select("#roadViz")
-    .append("svg")
-    .attr("width", roadWidth + roadMargin.left + roadMargin.right)
-    .attr("height", roadHeight + roadMargin.top + roadMargin.bottom)
-
-  // add road background
-  var leftRoad = roadSvgContainer
-    .append("image")
-    .attr("xlink:href", "img/leftRoad.png")
-    .attr("x", 80)
-    .attr("y", 80)
-    .attr("id", "leftRoad")
-
-  var stateLabel = roadSvgContainer.append("text")
-    .text("California")
-    .attr("class", "stateLabel")
-    .attr("transform", "translate("+ (roadWidth/2) +","+ 50 +")")
-    .style("text-anchor", "middle")
-    .attr("y", roadMargin.top);
-}
-
-// loads data from both CSVs
-function loadRoadVizData(causeFile, carFile) {
-  d3.queue()
-    .defer(d3.csv, causeFile)
-    .defer(d3.csv, carFile)
-    .await(
-      function(error, cause, car) {
-      if (error) {
-          console.error('ERROR: ' + error);
-      }
-      else {
-          drawCars(cause, car);
-      }
-    });
-}
-
-
-function drawCars(causeData, carData) {
-  var roadSvgContainer = d3.select("#roadViz").selectAll("svg");
+  var roadSvgContainer = d3.select(svgSelector).selectAll("svg");
 
   var orderOfExecution = [[6, 1, 7, 2, 8], [3, 9, 4], [5, 10]];
 
@@ -106,6 +62,17 @@ function drawCars(causeData, carData) {
     .attr("id", "straightPathSecondRow");
 
 
+  // Adjust labels
+
+  if (svgSelector == "#leftRoadViz") {
+    d3.select("#state1")
+      .text(causeData[stateCode].state)
+  } else if (svgSelector == "#rightRoadViz") {
+    d3.select("#state2")
+      .text(causeData[stateCode].state)
+  }
+
+
   // FIXME: Make rotation work
 
   // var gCarRot6 = d3.select("#gcarRot6")
@@ -116,9 +83,8 @@ function drawCars(causeData, carData) {
       // console.log(d)
     // })
 
-  setDestinations(22, causeData, orderOfExecution);
+  setDestinations(stateCode, causeData, orderOfExecution);
 } // end drawCars
-
 
 
 function moveCar(car, path, duration, delay) {
@@ -152,6 +118,7 @@ function getCarCount(stateData) {
 }
 
 function setDestinations(stateNum, causeData, orderOfExecution) {
+  console.log(causeData[stateNum])
   var delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
   var durations = [3000, 4000, 5000, 6000, 7000, 6000, 7000, 8000, 9000, 10000]
 
@@ -173,7 +140,7 @@ function setDestinations(stateNum, causeData, orderOfExecution) {
       var currentCar = allExecutions[i][j];
       var carToMove = d3.select("#gcar" + currentCar)
 
-      if (j <= stateCategoryCounts[i]) {
+      if (j < stateCategoryCounts[i]) {
         var alongPath = d3.select("#path" + currentCar);
       } else {
         // check how far down to go

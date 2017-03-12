@@ -74,8 +74,16 @@ label {
 }
 
 
-#roadViz {
-  border: 3px solid black;
+.roadViz {
+  /*border: 3px solid black;*/
   width: 500px;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.bothRoads {
+  width: 1000px;
   margin: 0 auto;
 }

@@ -17,7 +17,10 @@
     <div class="roadVizTitle">Fatalities by Contributing Factor (%)</div>
     <!-- Insert divs for d3 charts here -->
     <!-- <div class="stateName">California</div> -->
-    <div id="roadViz"></div>
+    <div class="row bothRoads">
+      <div id="leftRoadViz" class="roadViz column"></div>
+      <div id="rightRoadViz" class="roadViz column"></div>
+    </div>
     <!-- <div id="roadContainer"> -->
       <!-- <img id="leftRoad" src="img/leftRoad.png"> -->
       <!-- <img id="rightRoad" src="img/rightRoad.png"> -->
@@ -30,7 +33,9 @@
     <script src="lib/jquery-3.1.1.min.js"></script>
 
     <!-- Our Code -->
-    <script src="js/movingCars.js"></script>
+    <script src="js/drawCars.js"></script>
+    <script src="js/leftRoadViz.js"></script>
+    <script src="js/rightRoadViz.js"></script>
     <script src="js/viz.js"></script>
     <!-- insert your viz src files -->
 
