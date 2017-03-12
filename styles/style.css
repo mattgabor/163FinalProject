@@ -47,6 +47,21 @@ label {
   color: white;
 }
 
+.stateLabel {
+  font-size: 24px;
+  font-family: sans-serif;
+  color: black;
+}
+
+.roadVizTitle {
+  margin-top: 10px;
+  font-size: 26px;
+  text-align: center;
+  font-family: sans-serif;
+  color: black;
+}
+
+
 /***** road styling *****/
 #leftRoad {
   height: 600px;
@@ -60,7 +75,7 @@ label {
 
 
 #roadViz {
-  /*border: 3px solid black;*/
-  width: 1000px;
+  border: 3px solid black;
+  width: 500px;
   margin: 0 auto;
 }

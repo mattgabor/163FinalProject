@@ -1,7 +1,7 @@
 // Initial viz setup
-var roadMargin = {top: 10, right: 10, bottom: 10, left: 10},
-    roadWidth = 1000 - roadMargin.left - roadMargin.right,
-    roadHeight = 800 - roadMargin.top - roadMargin.bottom;
+var roadMargin = {top: 0, right: 10, bottom: 10, left: 10},
+    roadWidth = 500 - roadMargin.left - roadMargin.right,
+    roadHeight = 700 - roadMargin.top - roadMargin.bottom;
 
 function drawRoadAssets() {
 
@@ -18,12 +18,12 @@ function drawRoadAssets() {
     .attr("y", 80)
     .attr("id", "leftRoad")
 
-  // var rightRoad = roadSvgContainer
-  //   .append("image")
-  //   .attr("xlink:href", "img/rightRoad.png")
-  //   .attr("x", 520)
-  //   .attr("y", 80)
-  //   .attr("id", "rightRoad")
+  var stateLabel = roadSvgContainer.append("text")
+    .text("California")
+    .attr("class", "stateLabel")
+    .attr("transform", "translate("+ (roadWidth/2) +","+ 50 +")")
+    .style("text-anchor", "middle")
+    .attr("y", roadMargin.top);
 }
 
 // loads data from both CSVs
@@ -116,7 +116,7 @@ function drawCars(causeData, carData) {
       // console.log(d)
     // })
 
-  setDestinations(44, causeData, orderOfExecution);
+  setDestinations(22, causeData, orderOfExecution);
 } // end drawCars
 
 
