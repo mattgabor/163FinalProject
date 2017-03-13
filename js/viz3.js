@@ -3,7 +3,7 @@
 // drawScatter("data/file.csv");
 
 var driverData;
-    d3.csv("data/bad-drivers138.csv", function(error, data) {
+    d3.csv("data/bad-drivers138_3.csv", function(error, data) {
 
       // change string (from CSV) into number format
       data.forEach(function(d) {
