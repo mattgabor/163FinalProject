@@ -67,6 +67,8 @@ label {
   font-family: sans-serif;
 }
 
+
+
 /***** tooltip styling *****/
 .d3-tip {
   line-height: 1;
@@ -91,14 +93,6 @@ label {
   position: absolute;
   text-align: center;
 }
-
-.yearLabel
-{
-  font-size: 20px;
-  font-weight: bold;
-  color: black;
-}
-
 
 /* Style northward tooltips differently */
 .d3-tip.n:after {
