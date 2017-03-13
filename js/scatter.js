@@ -1,4 +1,6 @@
 function initializeScatter() {
+  var state1 = "California";
+  var state2 = "Texas";
   var driverData;
       d3.csv("data/bad-drivers138_3.csv", function(error, data) {
 
@@ -9,7 +11,7 @@ function initializeScatter() {
           d["percentage of immigrants"]                             = +d["percentage of immigrants"];
           // d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"] = +d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"];
           // d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"]                             = +d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"];
-          d["Start"]                                                = +d["Start"];
+          // d["Start"]                                                = +d["Start"];
          // console.log(d);
         });
           driverData = data;
@@ -45,7 +47,7 @@ function initializeScatter() {
       var numDataPoints = 1000;
 
       //create data points
-      attr['start'] = true;
+      attr['percentage unemployement rate'] = true;
       var dataset = create_data(data);
 
       // function for creation of line
@@ -58,15 +60,13 @@ function initializeScatter() {
           });
 
       ////// Define Scales /////////////////
-       // xScale = d3.scale.linear()
-       //                      .domain([0,d3.max(dataset, function(d){
-       //                        return d.x;
-       //                      })])
-       //                      .range([padding,w - padding*2]);
-
       xScale = d3.scale.linear()
-                            .domain([0,100])
-                            .range([padding, scatterWidth - padding * 2]);
+                    .domain([d3.min(dataset, function(d){
+                      return d.x;
+                    }) - .2,d3.max(dataset, function(d){
+                      return d.x;
+                    }) + 1])
+                    .range([padding, scatterWidth - padding * 2]);
 
       yScale = d3.scale.linear()
                             .domain([0,40]) //y range is reversed because svg
@@ -109,9 +109,7 @@ function initializeScatter() {
           })
           .attr("cy", function(d){
             return yScale(d.y);
-          })
-          .attr("r", 12.5);
-
+          });
 
       // append regression line
       svg.append("path")
@@ -146,12 +144,24 @@ function initializeScatter() {
           .style("text-anchor", "end")
           .text("Number of Fatalities");
 
-
       svg.call(tip);
 
       svg.selectAll(".dot")
           .on('mouseover', tip.show)
           .on('mouseout', tip.hide);
+
+      svg.selectAll(".dot")
+        // .data(dataset)
+        // .enter()
+        .attr("r", function(d){
+          if (d["state"] == state1 || d["state"] == state2){
+            return 25;
+          }
+          else{
+            return 12.5;
+          }
+        });
+    update(dataset);
   }
 
       d3.select("#percentageunemployementrate")
@@ -302,10 +312,7 @@ function initializeScatter() {
 
   function calculate_x_Value(data){
       var value   = 0;
-      if(attr["start"]){
-          value = value + +data["Start"];
-      }
-      else if (attr["percentage unemployement rate"]){
+      if (attr["percentage unemployement rate"]){
           value = value + +data["percentage unemployement rate"];
       }
       else if (attr["percentage graduation rate"]){
