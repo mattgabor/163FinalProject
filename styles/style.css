@@ -53,7 +53,7 @@ label {
   color: black;
 }
 
-.roadVizTitle {
+.vizTitle {
   margin-top: 10px;
   font-size: 26px;
   text-align: center;
@@ -146,7 +146,7 @@ select {
 #scatter {
     /*background-color: transparent;*/
     /*background-image:       linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);*/
-  height:100%;
+  height: 75%;
   background-size:50px 50px;
 }
 

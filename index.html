@@ -19,7 +19,7 @@
         <div id="StateMapOverview"></div>
       </div>
       <!-- timeline dropdowns -->
-      <div class="row title"><h2>Timeline View: Difference From National Average by Year</h2></div>
+      <div class="vizTitle">Timeline View: Difference From National Average by Year</div>
       <div class="row">
         <div class="col">
           <select name="stateRight">
@@ -141,7 +141,7 @@
 
     <!-- Road viz container -->
     <div class="container">
-    <div class="roadVizTitle">Fatalities by Contributing Factor (%)</div>
+    <div class="vizTitle">Fatalities by Contributing Factor (%)</div>
     <!-- Div containing both state dropdowns -->
     <div class="row dropdown">
       <div class="col" id="leftRoadDropdown">
@@ -262,16 +262,18 @@
     </div>
 
     <div class="container">
-      <h1><font color="white">Vis 3</font></h1>
-      <br>
-      <div>
-      <button type="button" id="percentageunemployementrate">Unemployement Rate</button><br>
-      <br>
-      <button type="button" id="percentagegraduationrate">College Graduation Rate</button><br>
-      <br>
-      <button type="button" id="percentageofimmigrants">Percent Immigrants</button>
+      <div class="vizTitle">Potentially Correlating Factors</div>
+      <div class="row">
+        <br>
+        <div>
+        <button type="button" id="percentageunemployementrate">Unemployement Rate</button><br>
+        <br>
+        <button type="button" id="percentagegraduationrate">College Graduation Rate</button><br>
+        <br>
+        <button type="button" id="percentageofimmigrants">Percent Immigrants</button>
+        </div>
+        <div id="scatter"></div>
       </div>
-      <div id="scatter"></div>
     </div>
 
     <!-- External Libraries -->

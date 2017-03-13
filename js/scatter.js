@@ -24,8 +24,11 @@ function initializeScatter() {
     yAxis,
     attr = {},
     padding = 30,
-    width = 1024,
-    height = 600;
+    // scatterWidth = 1024,
+    // scatterHeight = 600,
+    scatterMargin = {top: 0, right: 0, bottom: 20, left: 80};
+        scatterWidth = 1024 - scatterMargin.left - scatterMargin.right,
+        scatterHeight = 650 - scatterMargin.top - scatterMargin.bottom;
 
   var tip = d3.tip()
     .attr('class', 'd3-tip')
@@ -63,11 +66,11 @@ function initializeScatter() {
 
       xScale = d3.scale.linear()
                             .domain([0,100])
-                            .range([padding, width - padding * 2]);
+                            .range([padding, scatterWidth - padding * 2]);
 
       yScale = d3.scale.linear()
                             .domain([0,40]) //y range is reversed because svg
-                            .range([height - padding, padding]);
+                            .range([scatterHeight - padding, padding]);
       /////// Define Axis //////////////////////////////
       xAxis = d3.svg.axis()
                     .scale(xScale)
@@ -80,8 +83,8 @@ function initializeScatter() {
       svg = d3.select("#scatter")
                   .attr('class', 'gridLines')
                   .append("svg")
-                  .attr("width", width)
-                  .attr("height", height);
+                  .attr("width", scatterWidth)
+                  .attr("height", scatterHeight);
 
       // cut off datapoints that are outside the axis
       svg.append("clipPath")
@@ -89,8 +92,8 @@ function initializeScatter() {
           .append("rect")
           .attr("x", padding)
           .attr("y", padding)
-          .attr("width", width - padding * 3)
-          .attr("height", height - padding *2);
+          .attr("width", scatterWidth - padding * 3)
+          .attr("height", scatterHeight - padding *2);
 
       // append data points
       svg.append("g")
@@ -114,13 +117,12 @@ function initializeScatter() {
       svg.append("path")
           .datum(dataset)
           .attr("clip-path", "url(#chart-area)")
-          .attr("class", "line")
-          .attr("d", newline);
+          .attr("class", "line");
 
       // append Axes ///////////////////////////
       svg.append("g")
           .attr("class", "x axis")
-          .attr("transform", "translate(0," + ( height - padding) + ")")
+          .attr("transform", "translate(0," + ( scatterHeight - padding) + ")")
           .call(xAxis);
 
       svg.append("text")      // text label for the x axis
@@ -200,7 +202,7 @@ function initializeScatter() {
                     .domain([0,d3.max(dataset, function(d){
                       return d.x;
                     }) + 1])
-                    .range([padding, width - padding * 2]);
+                    .range([padding, scatterWidth - padding * 2]);
 
           svg.selectAll("circle")
               .data(dataset)
