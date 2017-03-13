@@ -130,6 +130,7 @@ function create(data){
 
     svg.append("text")      // text label for the x axis
         .attr("id", "XText")
+        .attr("fill", "white")
         .attr("x", 500 )
         .attr("y",  600 )
         .style("text-anchor", "middle")
@@ -139,6 +140,14 @@ function create(data){
         .attr("class", "y axis")
         .attr("transform", "translate(" + padding + ",0)")
         .call(yAxis);
+
+    svg.append("text")      // text label for the x axis
+        .attr("id", "YText")
+        .attr("fill", "white")
+        .attr("x", 180 )
+        .attr("y",  30 )
+        .style("text-anchor", "end")
+        .text("Number of Fatalities");
 
 
     svg.call(tip);
