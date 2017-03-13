@@ -111,113 +111,110 @@ function normalizeToAverage(stateData, averageData){
 
 
 function initializeTimeline(){
-  defaultState = "California";
+  defaultLeftState = "California";
+  defaultRightState = "Texas";
 
 
 d3.csv("../data/timeline.csv", function(error, data) {
-
-
-
   if (error) throw error;
 
-  nationalAverageFormatted = formatStateData(data[getRowForState("USA")]);
+  drawTimeline(defaultLeftState, "left");
+  drawTimeline(defaultRightState, "right");
 
-  currentStateData = data[getRowForState(defaultState)];
-  currentStateDataFormatted = formatStateData(currentStateData);
-  normalizedStateData = normalizeToAverage(currentStateDataFormatted, nationalAverageFormatted);
+  function drawTimeline(state, side){
+    nationalAverageFormatted = formatStateData(data[getRowForState("USA")]);
+    currentStateData = data[getRowForState(state)];
+    currentStateDataFormatted = formatStateData(currentStateData);
+    normalizedStateData = normalizeToAverage(currentStateDataFormatted, nationalAverageFormatted);
+    var leftYPos = 0;
+    var middle = width/2;
+    var currentSvg;
+    if(side == "left"){
+      currentSvg = d3.select("#leftTimeline")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+    }else{
+      currentSvg = d3.select("#rightTimeline")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
 
-  var leftYPos = 0;
-  var widthScale = d3.scale.linear().domain([.5,3]).range(-width/2, width/2);
-  var middle = width/2;
+    }
 
-  var leftSvg = d3.select("#leftTimeline")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+      var barTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.year + "</br> " + (d.value*100).toFixed(2);});
 
-  var barTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.year + "</br> " + (d.value*100).toFixed(2);});
+      currentSvg.call(barTip);
 
-  leftSvg.call(barTip);
+      //vertical 0 axis line
+      currentSvg.append("line")
+        .attr("x1", width/2)
+        .attr("y1", 0)
+        .attr("x2", width/2)
+        .attr("y2", height)
+        .attr("stroke-width", 2)
+        .attr("stroke", "black");
 
-  // //works
-  // leftSvg.selectAll("rect")
-  //   .data(dataTest)
-  //   .enter().append("rect")
-  //   .attr("x",0 )
-  //   .attr("y", function(){leftYPos = leftYPos+25; return leftYPos;})
-  //   .attr("width", function(d){return d.value})
-  //   .attr("height", 20);
+      //top line
+      currentSvg.append("line")
+        .attr("x1", 0+50)
+        .attr("y1", 0)
+        .attr("x2", width-50)
+        .attr("y2", 0)
+        .attr("stroke-width", 2)
+        .attr("stroke", "black");
 
-  //vertical 0 axis line
-  leftSvg.append("line")
-    .attr("x1", width/2)
-    .attr("y1", 0)
-    .attr("x2", width/2)
-    .attr("y2", height)
-    .attr("stroke-width", 2)
-    .attr("stroke", "black");
-
-  //top line
-  leftSvg.append("line")
-    .attr("x1", 0+50)
-    .attr("y1", 0)
-    .attr("x2", width-50)
-    .attr("y2", 0)
-    .attr("stroke-width", 2)
-    .attr("stroke", "black");
-
-    //botttom line
-    leftSvg.append("line")
-      .attr("x1", 0+50)
-      .attr("y1", height)
-      .attr("x2", width-50)
-      .attr("y2", height)
-      .attr("stroke-width", 2)
-      .attr("stroke", "black");
-
-
-  leftSvg.selectAll("rect")
-    .data(normalizedStateData)
-    .enter().append("rect")
-    .on('click', function(d,i){})
-    .on('mouseover', function(d,i){
-      barTip.show(d);
-      // d3.select(this)
-      // .style("cursor", "pointer")
-      // .style("stroke", "")
-      // .attr("opacity",.5);
-    })
-    .on('mouseout', function(d,i){
-      barTip.hide(d);
-      // d3.select(this)
-      // .attr("opacity",1)
-      // .style("cursor", "pointer");
-    })
+        //botttom line
+        currentSvg.append("line")
+          .attr("x1", 0+50)
+          .attr("y1", height)
+          .attr("x2", width-50)
+          .attr("y2", height)
+          .attr("stroke-width", 2)
+          .attr("stroke", "black");
 
 
+      currentSvg.selectAll("rect")
+        .data(normalizedStateData)
+        .enter().append("rect")
+        .on('click', function(d,i){})
+        .on('mouseover', function(d,i){
+          barTip.show(d);
+          // d3.select(this)
+          // .style("cursor", "pointer")
+          // .style("stroke", "")
+          // .attr("opacity",.5);
+        })
+        .on('mouseout', function(d,i){
+          barTip.hide(d);
+          // d3.select(this)
+          // .attr("opacity",1)
+          // .style("cursor", "pointer");
+        })
+        .attr("x",function(d){
+          if(d.value <0){
+            //console.log("negative start point");
+            //console.log(width/2 - d.value*scaleFactor);
+            return width/2 + d.value*scaleFactor;
+          }else{
+            return width/2;
+          }
+          })
+        .attr("y", function(){leftYPos = leftYPos+33; return leftYPos;})
+        .attr("width", function(d){
+          return Math.abs(d.value*scaleFactor);
+        })
+        .attr("height", 30)
+        .attr("fill", function(d){
+          //console.log(d.value);
+          if(d.value <0){
+            return "green";
+          }else{
+            return "red";
+          }
+        });
+  }
 
-    .attr("x",function(d){
-      if(d.value <0){
-        //console.log("negative start point");
-        //console.log(width/2 - d.value*scaleFactor);
-        return width/2 + d.value*scaleFactor;
-      }else{
-        return width/2;
-      }
-      })
-    .attr("y", function(){leftYPos = leftYPos+33; return leftYPos;})
-    .attr("width", function(d){
-      return Math.abs(d.value*scaleFactor);
-    })
-    .attr("height", 30)
-    .attr("fill", function(d){
-      //console.log(d.value);
-      if(d.value <0){
-        return "green";
-      }else{
-        return "red";
-      }
-    });
   });
 
     // leftSvg.selectAll("circle")
@@ -227,27 +224,24 @@ d3.csv("../data/timeline.csv", function(error, data) {
     //   .attr("cy", function(d) { return d.y2012*200; })
     //   .attr("r", 2);
 }
-function updateTimeline(state){
+function updateTimeline(state, side){
+    d3.csv("../data/timeline.csv", function(error, data) {
 
-  d3.csv("../data/timeline.csv", function(error, data) {
-
-
-
-    //console.log("redrawing timeline for state: ");
-    //console.log(state);
     nationalAverageFormatted = formatStateData(data[getRowForState("USA")]);
     currentStateData = data[getRowForState(state)];
     currentStateDataFormatted = formatStateData(currentStateData);
     normalizedStateData = normalizeToAverage(currentStateDataFormatted, nationalAverageFormatted);
-    //console.log(normalizedStateData);
-
-
-    var timelineSvg = d3.select("#leftTimeline").select("svg");
+    var svgToBeUpdated;
+    if(side == "left"){
+      svgToBeUpdated = d3.select("#leftTimeline").select("svg");
+    }else{
+      svgToBeUpdated = d3.select("#rightTimeline").select("svg");
+    }
 
     var leftYPos = 0;
     var middle = width/2;
 
-    timelineSvg.selectAll("rect")
+    svgToBeUpdated.selectAll("rect")
       .data(normalizedStateData)
       .transition().duration(700)
       .attr("x",function(d){
