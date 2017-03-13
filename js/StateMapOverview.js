@@ -82,8 +82,8 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
   var fatalities = d3.map();
 
   d3.queue()
-    .defer(d3.json, "../data/us-10m.v1.json")
-    .defer(d3.csv, "../data/bad-drivers138.csv", function(d) {
+    .defer(d3.json, "data/us-10m.v1.json")
+    .defer(d3.csv, "data/bad-drivers138.csv", function(d) {
       //console.log(d.state);
       //console.log(d.geoID);
       //console.log(d.totalNumber);
