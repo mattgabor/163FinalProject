@@ -1,4 +1,4 @@
-function drawCars(causeData, carData, svgSelector, stateCode) {
+function drawCars(causeData, carData, svgSelector, direction, stateCode) {
 
   var roadSvgContainer = d3.select(svgSelector).selectAll("svg");
 
@@ -21,7 +21,7 @@ function drawCars(causeData, carData, svgSelector, stateCode) {
               [+d.pos4x, +d.pos4y]];
 
     var carG = roadSvgContainer.append("g")
-      .attr("id", "gcar" + (i + 1));
+      .attr("id", direction + "gcar" + (i + 1));
 
     var carRotateG = carG.append("g")
       .attr("id", "gcarRot" + (i + 1));
@@ -81,7 +81,7 @@ function drawCars(causeData, carData, svgSelector, stateCode) {
       // console.log(d);
 
     // })
-    setDestinations(stateCode, causeData);
+    setDestinations(stateCode, causeData, direction);
 } // end drawCars
 
 
@@ -113,7 +113,7 @@ function getCarCount(stateData) {
   return carCount;
 }
 
-function setDestinations(stateNum, causeData) {
+function setDestinations(stateNum, causeData, direction) {
   console.log(causeData[stateNum])
   var orderOfExecution = [[6, 1, 7, 2, 8], [3, 9, 4], [5, 10]];
   var delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
@@ -132,7 +132,7 @@ function setDestinations(stateNum, causeData) {
     // loop through potential speeding fatalities
     for (var j = 0; j < categoryMaxCars[i]; j++) {
       var currentCar = allExecutions[i][j];
-      var carToMove = d3.select("#gcar" + currentCar)
+      var carToMove = d3.select("#" + direction + "gcar" + currentCar)
 
       if (j < stateCategoryCounts[i]) {
         var alongPath = d3.select("#path" + currentCar);
@@ -149,3 +149,16 @@ function setDestinations(stateNum, causeData) {
     } // end fatality count loop
   } // end fatality type loop
 } // end setDestinations()
+
+
+function updateCars(stateNum, causeData) {
+  causeData.forEach(function(d) {
+    d.totalNumber = +d.totalNumber;
+    d.speeding = +d.speeding;
+    d.alcohol = +d.alcohol;
+    d.distracted = +d.distracted;
+    d.carCount = getCarCount(d);
+  });
+
+  setDestinations(stateNum, causeData)
+}

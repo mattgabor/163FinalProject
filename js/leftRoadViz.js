@@ -54,7 +54,22 @@ function loadLeftRoadVizData(causeFile, carFile, stateCode) {
           console.error('ERROR: ' + error);
       }
       else {
-          drawCars(cause, car, "#leftRoadViz", stateCode);
+          drawCars(cause, car, "#leftRoadViz", "left", stateCode);
+      }
+    });
+}
+
+function updateLeftRoadVizData(causeFile, carFile, stateCode) {
+  d3.queue()
+    .defer(d3.csv, causeFile)
+    .defer(d3.csv, carFile)
+    .await(
+      function(error, cause, car) {
+      if (error) {
+          console.error('ERROR: ' + error);
+      }
+      else {
+          // updateCars(cause, car, "#leftRoadViz", stateCode);
       }
     });
 }

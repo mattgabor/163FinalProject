@@ -16,14 +16,6 @@ function drawRightRoadAssets() {
     .attr("x", 80)
     .attr("y", 40)
     .attr("id", "rightRoad")
-
-  // var stateLabel = roadSvgContainer.append("text")
-  //   .text("")
-  //   .attr("id", "state2")
-  //   .attr("class", "stateLabel")
-  //   .attr("transform", "translate("+ (roadWidth/2) +","+ 50 +")")
-  //   .style("text-anchor", "middle")
-  //   .attr("y", roadMargin.top);
 }
 
 // loads data from both CSVs
@@ -37,7 +29,7 @@ function loadRightRoadVizData(causeFile, carFile, stateCode) {
           console.error('ERROR: ' + error);
       }
       else {
-          drawCars(cause, car, "#rightRoadViz", stateCode);
+          drawCars(cause, car, "#rightRoadViz", "right", stateCode);
       }
     });
 }
