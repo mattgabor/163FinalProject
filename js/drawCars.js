@@ -151,7 +151,7 @@ function setDestinations(stateNum, causeData, direction) {
 } // end setDestinations()
 
 
-function updateCars(stateNum, causeData) {
+function updateCars(stateNum, causeData, direction) {
   causeData.forEach(function(d) {
     d.totalNumber = +d.totalNumber;
     d.speeding = +d.speeding;
@@ -160,5 +160,5 @@ function updateCars(stateNum, causeData) {
     d.carCount = getCarCount(d);
   });
 
-  setDestinations(stateNum, causeData)
+  setDestinations(stateNum, causeData, direction)
 }

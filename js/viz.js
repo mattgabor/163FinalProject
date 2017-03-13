@@ -1,21 +1,34 @@
 // drawMap("datafilename");
 // drawCars("data/file.csv");
 // drawScatter("data/file.csv");
+var causeFile = "data/bad-drivers138.csv";
+var carFile = "data/carPositionsOneSide.csv";
+
 drawLeftRoadAssets();
 drawRightRoadAssets();
-loadRightRoadVizData("data/bad-drivers138.csv", "data/carPositionsOneSide.csv", 0);
-loadLeftRoadVizData("data/bad-drivers138.csv", "data/carPositionsOneSide.csv", 5);
+loadRightRoadVizData(0);
+loadLeftRoadVizData(5);
 
-// $("#timelineLeftStateSelector").change(function() {
-//   var leftStateName = $('#timelineLeftStateSelector').find(":selected").text();
-//   var rightStateName = $('#timelineRightStateSelector').find(":selected").text();
-//
-//   // also update selected of same side selector on other graph
-//   updateAll(leftStateName, rightStateName);
-// });
-//
-// function updateAll(leftState, rightState) {
-//   updateMap(leftState, rightState);
-//   updateTimeline(leftState, rightState);
-//   updateRoad(leftState, rightState);
-// }
+$("#leftRoadDropdown").change(function() {
+  var leftStateName = $("#leftRoadDropdown").find(":selected").text();
+  var rightStateName = $("#rightRoadDropdown").find(":selected").text();
+
+  // also update selected of same side selector on other graph
+  updateAll(leftStateName, rightStateName);
+});
+
+$("#rightRoadDropdown").change(function() {
+  var leftStateName = $("#leftRoadDropdown").find(":selected").text();
+  var rightStateName = $("#rightRoadDropdown").find(":selected").text();
+
+  // also update selected of same side selector on other graph
+  updateAll(leftStateName, rightStateName);
+});
+
+function updateAll(leftState, rightState) {
+  // updateMap(leftState, rightState);
+  // updateTimeline(leftState, rightState);
+  // update road Viz
+  // updateLeftRoadVizData(22)
+  // updateRightRoadVizData(22)
+}

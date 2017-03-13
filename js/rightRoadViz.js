@@ -19,7 +19,7 @@ function drawRightRoadAssets() {
 }
 
 // loads data from both CSVs
-function loadRightRoadVizData(causeFile, carFile, stateCode) {
+function loadRightRoadVizData(stateCode) {
   d3.queue()
     .defer(d3.csv, causeFile)
     .defer(d3.csv, carFile)
@@ -30,6 +30,22 @@ function loadRightRoadVizData(causeFile, carFile, stateCode) {
       }
       else {
           drawCars(cause, car, "#rightRoadViz", "right", stateCode);
+      }
+    });
+}
+
+// called when a user switches states from map or selector
+function updateRightRoadVizData(stateCode) {
+  d3.queue()
+    .defer(d3.csv, causeFile)
+    .defer(d3.csv, carFile)
+    .await(
+      function(error, cause, car) {
+      if (error) {
+          console.error('ERROR: ' + error);
+      }
+      else {
+          updateCars(stateCode, cause, "right");
       }
     });
 }

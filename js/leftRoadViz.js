@@ -17,34 +17,10 @@ function drawLeftRoadAssets() {
     .attr("x", 80)
     .attr("y", 40)
     .attr("id", "leftRoad")
-  //
-  // roadSvgContainer.append("text")
-  //   .text("12%")
-  //   .attr("id", "leftSpeedLabel")
-  //   .attr("class", "factorLabel")
-  //   .attr("transform", "translate("+ 40 +","+ (215) +")")
-  //   .style("text-anchor", "middle")
-  //   .attr("y", roadMargin.top);
-  //
-  // roadSvgContainer.append("text")
-  //   .text("14%")
-  //   .attr("id", "leftSpeedLabel")
-  //   .attr("class", "factorLabel")
-  //   .attr("transform", "translate("+ 40 +","+ (565) +")")
-  //   .style("text-anchor", "middle")
-  //   .attr("y", roadMargin.top);
-  //
-  // roadSvgContainer.append("text")
-  //   .text("15%")
-  //   .attr("id", "leftSpeedLabel")
-  //   .attr("class", "factorLabel")
-  //   .attr("transform", "translate("+ 40 +","+ (440) +")")
-  //   .style("text-anchor", "middle")
-  //   .attr("y", roadMargin.top);
 }
 
 // loads data from both CSVs
-function loadLeftRoadVizData(causeFile, carFile, stateCode) {
+function loadLeftRoadVizData(stateCode) {
   d3.queue()
     .defer(d3.csv, causeFile)
     .defer(d3.csv, carFile)
@@ -59,7 +35,8 @@ function loadLeftRoadVizData(causeFile, carFile, stateCode) {
     });
 }
 
-function updateLeftRoadVizData(causeFile, carFile, stateCode) {
+// called when a user switches states from map or selector
+function updateLeftRoadVizData(stateCode) {
   d3.queue()
     .defer(d3.csv, causeFile)
     .defer(d3.csv, carFile)
@@ -69,7 +46,7 @@ function updateLeftRoadVizData(causeFile, carFile, stateCode) {
           console.error('ERROR: ' + error);
       }
       else {
-          // updateCars(cause, car, "#leftRoadViz", stateCode);
+          updateCars(stateCode, causeData, "left");
       }
     });
 }
