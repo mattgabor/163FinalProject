@@ -199,7 +199,9 @@ function initializeScatter() {
           // console.log(dataset[0].x);
 
           xScale = d3.scale.linear()
-                    .domain([0,d3.max(dataset, function(d){
+                    .domain([d3.min(dataset, function(d){
+                      return d.x;
+                    }) - .2,d3.max(dataset, function(d){
                       return d.x;
                     }) + 1])
                     .range([padding, scatterWidth - padding * 2]);
