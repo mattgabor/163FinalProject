@@ -129,7 +129,7 @@ function initializeScatter() {
           .attr("x", 500 )
           .attr("y",  600 )
           .style("text-anchor", "middle")
-          .text("Please choose an attribute");
+          .text("Percentage Unemployed");
 
       svg.append("g")
           .attr("class", "y axis")
