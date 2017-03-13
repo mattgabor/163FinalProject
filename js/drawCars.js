@@ -80,7 +80,8 @@ function drawCars(causeData, carData, svgSelector, stateCode) {
     // .duration(1000)
     // .delay(1500)
     // .attr("transform", function(d) {
-      // console.log(d)
+      // console.log(d);
+
     // })
 
   setDestinations(stateCode, causeData, orderOfExecution);
@@ -118,7 +119,6 @@ function getCarCount(stateData) {
 }
 
 function setDestinations(stateNum, causeData, orderOfExecution) {
-  console.log(causeData[stateNum])
   var delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
   var durations = [3000, 4000, 5000, 6000, 7000, 6000, 7000, 8000, 9000, 10000]
 

@@ -18,7 +18,7 @@ function drawRightRoadAssets() {
     .attr("id", "rightRoad")
 
   var stateLabel = roadSvgContainer.append("text")
-    .text("State 2")
+    .text("")
     .attr("id", "state2")
     .attr("class", "stateLabel")
     .attr("transform", "translate("+ (roadWidth/1.4) +","+ 50 +")")
