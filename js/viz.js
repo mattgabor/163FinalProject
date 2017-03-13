@@ -2,7 +2,7 @@
 // drawCars("data/file.csv");
 // drawScatter("data/file.csv");
 
-    var driverData;
+var driverData;
     d3.csv("data/bad-drivers138.csv", function(error, data) {
 
       // change string (from CSV) into number format
@@ -29,13 +29,20 @@ var attr = {};
 var padding;
 var w;
 
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong># Fatalities:</strong> <span style='color:red'>"+ d.y +"</span><br><strong>How much it's affected (%):</strong> <span style='color:red'>"+ d.x +"</span>";
+  })
+
 setAttrFalse();
 // attr['repeat'] = false;
 // attr['other'] = false;
 
 function create(data){
-    w = 960;
-    var h = 500;
+    w = 1024;
+    var h = 600;
     padding = 30;
     var numDataPoints = 1000;
 
@@ -76,6 +83,7 @@ function create(data){
                   .orient("left");
     // create svg
     svg = d3.select("#content")
+                .attr('class', 'gridLines')
                 .append("svg")
                 .attr("width",w)
                 .attr("height", h);
@@ -104,7 +112,7 @@ function create(data){
         .attr("cy", function(d){
           return yScale(d.y);
         })
-        .attr("r", 3.5);
+        .attr("r", 12.5);
 
 
     // append regression line
@@ -124,6 +132,13 @@ function create(data){
         .attr("class", "y axis")
         .attr("transform", "translate(" + padding + ",0)")
         .call(yAxis);
+
+
+    svg.call(tip);
+
+    svg.selectAll(".dot")
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
 }
 
     d3.select("#percentageunemployementrate")
@@ -153,6 +168,7 @@ function create(data){
         dataset = create_data(driverData);
         update(dataset);
       });
+
 
     function setAttrFalse(){
         attr['start']                           = false;
@@ -282,5 +298,89 @@ function calculate_x_Value(data){
     return value;
 }
 
+function calculate_Pvalue (array1, array1_size, array2, array2_size) {
+
+    if (array1_size <= 1) {
+        return 1.0;
+    }
+    if (array2_size <= 1) {
+        return 1.0;
+    }
+
+    var mean1 = 0.0;
+    var mean2 = 0.0;
+
+    for (var x = 0; x < array1_size; x++) {
+        mean1 += array1[x];
+    }
+    for (var x = 0; x < array2_size; x++) {
+        mean2 += array2[x];
+    }
+    if (mean1 == mean2) {
+        return 1.0;
+    }
+    mean1 /= array1_size;
+    mean2 /= array2_size;
+
+    var variance1 = 0.0;
+    var variance2 = 0.0;
+
+    for (var x = 0; x < array1_size; x++) {
+        variance1 += (array1[x]-mean1)*(array1[x]-mean1);
+    }
+    for (var x = 0; x < array2_size; x++) {
+        variance2 += (array2[x]-mean2)*(array2[x]-mean2);
+    }
+    if ((variance1 == 0.0) && (variance2 == 0.0)) {
+        return 1.0;
+    }
+    variance1 = variance1/(array1_size-1);
+    variance2 = variance2/(array2_size-1);
+
+    var WELCH_T_STATISTIC = (mean1-mean2)/Math.sqrt(variance1/array1_size+variance2/array2_size);
+    var DEGREES_OF_FREEDOM = Math.pow(((variance1/array1_size+variance2/array2_size),2.0)/((variance1*variance1)/(array1_size*array1_size*(array1_size-1))+(variance2*variance2)/(array2_size*array2_size*(array2_size-1))).toPrecision(6));
+    // console.log(DEGREES_OF_FREEDOM) here is where the NANs start
+
+    var a = DEGREES_OF_FREEDOM/2;
+    var x = DEGREES_OF_FREEDOM/(WELCH_T_STATISTIC*WELCH_T_STATISTIC+DEGREES_OF_FREEDOM);
+    var N = 65535;
+    var h = (x/N).toPrecision(6);
+    var sum1 = 0.0;
+    var sum2 = 0.0;
+    for(var i = 0; i < N; i++) {
+      sum1 += (Math.pow(h * i + h / 2.0,a-1))/(Math.sqrt(1-(h * i + h / 2.0)));
+      sum2 += (Math.pow(h * i,a-1))/(Math.sqrt(1-h * i));
+    }
+    var return_value = ((h / 6.0) * ((Math.pow(x,a-1))/(Math.sqrt(1-x)) + 4.0 * sum1 + 2.0 * sum2))/(Math.exp(lgammal(a)+0.57236494292470009-lgammal(a+0.5)));
+ 
+    if ((Number.isFinite(return_value) == 0) || (return_value > 1.0)) {
+        return 1.0;
+    } else {
+        return return_value;
+    }
+}
+
+function lgammal(xx) {
+    var j;
+    var x;
+    var y;
+    var tmp;
+    var ser;
+
+    var cof = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2,-0.5395239384953e-5];
+ 
+    x = xx;
+    y = x;
+    tmp = x + 5.5 - (x + 0.5) * Math.log(x + 5.5);
+    ser = 1.000000000190015;
+    for (j=0;j<=5;j++)
+        ser += (cof[j] / ++y);
+    return(Math.log((2.5066282746310005 * ser / x).toPrecision(5)) - tmp);
+}
+
+var d1 = [27.5,21.0,19.0,23.6,17.0,17.9,16.9,20.1,21.9,22.6,23.1,19.6,19.0,21.7,21.4];
+var d2 = [27.1,22.0,20.8,23.4,23.4,23.5,25.8,22.0,24.8,20.2,21.9,22.1,22.9,20.5,24.4];
+
+console.log(calculate_Pvalue(d1,d1.length,d2,d2,length));
 // Checkbox
 
