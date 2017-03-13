@@ -114,7 +114,7 @@ function initializeScatter() {
 
 
       // append regression line
-      svg.append("path")
+      svg.append("path") 
           .datum(dataset)
           .attr("clip-path", "url(#chart-area)")
           .attr("class", "line");
