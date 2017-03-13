@@ -15,16 +15,32 @@ function drawLeftRoadAssets() {
     .append("image")
     .attr("xlink:href", "img/leftRoad.png")
     .attr("x", 80)
-    .attr("y", 80)
+    .attr("y", 40)
     .attr("id", "leftRoad")
-
-  var stateLabel = roadSvgContainer.append("text")
-    .text("")
-    .attr("id", "state1")
-    .attr("class", "stateLabel")
-    .attr("transform", "translate("+ (roadWidth/1.4) +","+ 50 +")")
-    .style("text-anchor", "middle")
-    .attr("y", roadMargin.top);
+  //
+  // roadSvgContainer.append("text")
+  //   .text("12%")
+  //   .attr("id", "leftSpeedLabel")
+  //   .attr("class", "factorLabel")
+  //   .attr("transform", "translate("+ 40 +","+ (215) +")")
+  //   .style("text-anchor", "middle")
+  //   .attr("y", roadMargin.top);
+  //
+  // roadSvgContainer.append("text")
+  //   .text("14%")
+  //   .attr("id", "leftSpeedLabel")
+  //   .attr("class", "factorLabel")
+  //   .attr("transform", "translate("+ 40 +","+ (565) +")")
+  //   .style("text-anchor", "middle")
+  //   .attr("y", roadMargin.top);
+  //
+  // roadSvgContainer.append("text")
+  //   .text("15%")
+  //   .attr("id", "leftSpeedLabel")
+  //   .attr("class", "factorLabel")
+  //   .attr("transform", "translate("+ 40 +","+ (440) +")")
+  //   .style("text-anchor", "middle")
+  //   .attr("y", roadMargin.top);
 }
 
 // loads data from both CSVs

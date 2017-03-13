@@ -59,6 +59,7 @@ label {
   text-align: center;
   font-family: sans-serif;
   color: black;
+  font-weight: bold;
 }
 
 
@@ -86,4 +87,23 @@ label {
 .bothRoads {
   width: 1000px;
   margin: 0 auto;
+}
+
+.dropdown {
+  margin-top: 20px;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+select {
+  display: block;
+  margin: 30px auto 0 auto;
+  font-size: 22px;
+  /*text-align-last: center;*/
+}
+
+.factorLabel {
+  font-size: 24px;
+  font-family: sans-serif;
+  color: black;
 }

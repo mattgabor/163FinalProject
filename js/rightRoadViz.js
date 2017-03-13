@@ -14,16 +14,16 @@ function drawRightRoadAssets() {
     .append("image")
     .attr("xlink:href", "img/leftRoad.png")
     .attr("x", 80)
-    .attr("y", 80)
+    .attr("y", 40)
     .attr("id", "rightRoad")
 
-  var stateLabel = roadSvgContainer.append("text")
-    .text("")
-    .attr("id", "state2")
-    .attr("class", "stateLabel")
-    .attr("transform", "translate("+ (roadWidth/1.4) +","+ 50 +")")
-    .style("text-anchor", "middle")
-    .attr("y", roadMargin.top);
+  // var stateLabel = roadSvgContainer.append("text")
+  //   .text("")
+  //   .attr("id", "state2")
+  //   .attr("class", "stateLabel")
+  //   .attr("transform", "translate("+ (roadWidth/2) +","+ 50 +")")
+  //   .style("text-anchor", "middle")
+  //   .attr("y", roadMargin.top);
 }
 
 // loads data from both CSVs

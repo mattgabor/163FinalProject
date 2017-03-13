@@ -2,8 +2,6 @@ function drawCars(causeData, carData, svgSelector, stateCode) {
 
   var roadSvgContainer = d3.select(svgSelector).selectAll("svg");
 
-  var orderOfExecution = [[6, 1, 7, 2, 8], [3, 9, 4], [5, 10]];
-
   causeData.forEach(function(d) {
     d.totalNumber = +d.totalNumber;
     d.speeding = +d.speeding;
@@ -64,13 +62,13 @@ function drawCars(causeData, carData, svgSelector, stateCode) {
 
   // Adjust labels
 
-  if (svgSelector == "#leftRoadViz") {
-    d3.select("#state1")
-      .text(causeData[stateCode].state)
-  } else if (svgSelector == "#rightRoadViz") {
-    d3.select("#state2")
-      .text(causeData[stateCode].state)
-  }
+  // if (svgSelector == "#leftRoadViz") {
+  //   d3.select("#state1")
+  //     .text(causeData[stateCode].state)
+  // } else if (svgSelector == "#rightRoadViz") {
+  //   d3.select("#state2")
+  //     .text(causeData[stateCode].state)
+  // }
 
 
   // FIXME: Make rotation work
@@ -83,8 +81,7 @@ function drawCars(causeData, carData, svgSelector, stateCode) {
       // console.log(d);
 
     // })
-
-  setDestinations(stateCode, causeData, orderOfExecution);
+    setDestinations(stateCode, causeData);
 } // end drawCars
 
 
@@ -93,8 +90,6 @@ function moveCar(car, path, duration, delay) {
     .delay(delay)
     .duration(duration)
     .attrTween("transform", translateAlong(path.node()))
-    // .attr("transform", "rotate(30)")
-    // .each("end", carTransition);
 }
 
 // Returns an attrTween for translating along the specified path element.
@@ -118,16 +113,15 @@ function getCarCount(stateData) {
   return carCount;
 }
 
-function setDestinations(stateNum, causeData, orderOfExecution) {
+function setDestinations(stateNum, causeData) {
+  console.log(causeData[stateNum])
+  var orderOfExecution = [[6, 1, 7, 2, 8], [3, 9, 4], [5, 10]];
   var delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
   var durations = [3000, 4000, 5000, 6000, 7000, 6000, 7000, 8000, 9000, 10000]
 
   var stateCarCount = causeData[stateNum].carCount;
-  // console.log(orderOfExecution)
   var allExecutions = [orderOfExecution[0], orderOfExecution[1], orderOfExecution[2]];
-  // var speedExec = orderOfExecution[0];
-  // var alcExec = orderOfExecution[1];
-  // var distExec = orderOfExecution[2];
+
 
   var categoryMaxCars = [5, 3, 2];
   var stateCategoryCounts = [stateCarCount.speed, stateCarCount.alc, stateCarCount.dist];
