@@ -28,7 +28,7 @@ function initializeScatter() {
     padding = 30,
     // scatterWidth = 1024,
     // scatterHeight = 600,
-    scatterMargin = {top: 0, right: 0, bottom: 20, left: 80};
+    scatterMargin = {top: 10, right: 0, bottom: 50, left: 80};
         scatterWidth = 1024 - scatterMargin.left - scatterMargin.right,
         scatterHeight = 650 - scatterMargin.top - scatterMargin.bottom;
 
@@ -126,8 +126,8 @@ function initializeScatter() {
       svg.append("text")      // text label for the x axis
           .attr("id", "XText")
           .attr("fill", "black")
-          .attr("x", 500 )
-          .attr("y",  600 )
+          .attr("x", scatterWidth - 350)
+          .attr("y",  scatterHeight)
           .style("text-anchor", "middle")
           .text("Percentage Unemployed");
 
@@ -151,6 +151,7 @@ function initializeScatter() {
           .on('mouseout', tip.hide);
 
       svg.selectAll(".dot")
+        // .attr("fill","black")
         // .data(dataset)
         // .enter()
         .attr("r", function(d){
@@ -160,7 +161,17 @@ function initializeScatter() {
           else{
             return 12.5;
           }
+        })
+        // .attr("fill","white");
+        .attr("fill", function(d){
+          if (d["state"] == state1 || d["state"] == state2){
+            return '#000000';
+          }
+          else{
+            return '#1E90FF';
+          }
         });
+
     update(dataset);
   }
 

@@ -138,7 +138,7 @@ select {
 }
 
 .dot {
-    fill: #1E90FF;
+    /*fill: #1E90FF;*/
     opacity: 0.5;
 
 }
