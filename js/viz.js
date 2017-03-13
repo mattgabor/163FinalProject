@@ -7,12 +7,12 @@
 
       // change string (from CSV) into number format
       data.forEach(function(d) {
-        d["Percentage Of Drivers Involved In Fatal Collisions Who Were Speeding"]                                   = +d["Percentage Of Drivers Involved In Fatal Collisions Who Were Speeding"];
-        d["Percentage Of Drivers Involved In Fatal Collisions Who Were Alcohol-Impaired"]                           = +d["Percentage Of Drivers Involved In Fatal Collisions Who Were Alcohol-Impaired"];
-        d["Percentage Of Drivers Involved In Fatal Collisions Who Were Distracted"]                                 = +d["Percentage Of Drivers Involved In Fatal Collisions Who Were Distracted"];
-        d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"] = +d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"];
-        d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"]                             = +d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"];
-        d["Start"]                                                                                                  = +d["Start"];
+        d["percentage unemployement rate"]                        = +d["percentage unemployement rate"];
+        d["percentage graduation rate"]                           = +d["percentage graduation rate"];
+        d["percentage of immigrants"]                             = +d["percentage of immigrants"];
+        // d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"] = +d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"];
+        // d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"]                             = +d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"];
+        d["Start"]                                                = +d["Start"];
        // console.log(d);
       });
         driverData = data;
@@ -26,18 +26,17 @@ var newline;
 var xAxis;
 var yAxis;
 var attr = {};
+var padding;
+var w;
 
-attr['start'] = false;
-attr['speeding'] = false;
-attr['drinking'] = false;
-attr['distracted'] = false;
-attr['repeat'] = false;
-attr['other'] = false;
+setAttrFalse();
+// attr['repeat'] = false;
+// attr['other'] = false;
 
 function create(data){
- var w = 960;
+    w = 960;
     var h = 500;
-    var padding = 30;
+    padding = 30;
     var numDataPoints = 1000;
 
     //create data points
@@ -61,7 +60,7 @@ function create(data){
      //                      .range([padding,w - padding*2]);
 
     xScale = d3.scale.linear()
-                          .domain([0,60])
+                          .domain([0,100])
                           .range([padding,w - padding*2]);
                          
     yScale = d3.scale.linear()
@@ -127,80 +126,52 @@ function create(data){
         .call(yAxis);
 }
 
-    d3.select("#speeding")
+    d3.select("#percentageunemployementrate")
       .on("click", function(){
         // create new data
-        attr["speeding"] = true;
+        setAttrFalse();
+        console.log(attr);
+        attr["percentage unemployement rate"] = true;
         dataset = create_data(driverData);
         update(dataset);
       });    
 
-    d3.select("#drinking")
+    d3.select("#percentagegraduationrate")
       .on("click", function(){
         // create new data
-        attr["drinking"] = true;
+        setAttrFalse();
+        attr["percentage graduation rate"] = true;
         dataset = create_data(driverData);
         update(dataset);
       });
 
-    d3.select("#distracted")
+    d3.select("#percentageofimmigrants")
       .on("click", function(){
         // create new data
-        attr["distracted"] = true;
+        setAttrFalse();
+        attr["percentage of immigrants"] = true;
         dataset = create_data(driverData);
         update(dataset);
       });
 
-    d3.select("#repeat")
-      .on("click", function(){
-        // create new data
-        attr["repeat"] = true;
-        dataset = create_data(driverData);
-        update(dataset);
-      });
-
-    d3.select("#other")
-      .on("click", function(){
-        // create new data
-        attr["other"] = true;
-        dataset = create_data(driverData);
-        //Update scale domains
-        // xScale.domain([0,100]);
-        // yScale.domain([0,80]);
-
-        update(dataset);
-        // update data points
-        // svg.selectAll("circle")
-        //     .data(dataset)
-        //     .transition()
-        //     .duration(1000)
-        //     .attr("cx", function(d){
-        //       return xScale(d.x);
-        //     })
-        //     .attr("cy", function(d){
-        //       return yScale(d.y);
-        //     });
-
-        // // update and transition regression line
-        // svg.select("path")
-        //     .datum(dataset)
-        //     .transition()
-        //     .duration(1000)
-        //     .attr("d", newline);;
-
-        // // update axis
-        // svg.select(".x.axis")
-        //       .transition()
-        //       .duration(1000)
-        //       .call(xAxis);
-
-        // svg.select(".y.axis")
-        //         .transition()
-        //         .duration(1000)
-        //         .call(yAxis);
-      });
+    function setAttrFalse(){
+        attr['start']                           = false;
+        attr['percentage unemployement rate']   = false;
+        attr['percentage graduation rate']      = false;
+        attr['percentage of immigrants']        = false;
+    }
 
     function update(dataset){
+        console.log(dataset);
+
+        // console.log(dataset[0].x);
+
+        xScale = d3.scale.linear()
+                  .domain([0,d3.max(dataset, function(d){
+                    return d.x;
+                  }) + 1])
+                  .range([padding,w - padding*2]);
+
         svg.selectAll("circle")
             .data(dataset)
             .transition()
@@ -212,25 +183,42 @@ function create(data){
               return yScale(d.y);
             });
 
+        // xAxis = d3.svg.axis()
+        //       .scale(xScale)
+        //       .orient("bottom");
+
+        // yAxis = d3.svg.axis()
+        //       .scale(yScale)
+        //       .orient("left");
+
         // update and transition regression line
+
+        // update axis
+
+        xAxis = d3.svg.axis()
+              .scale(xScale)
+              .orient("bottom");
+
+        yAxis = d3.svg.axis()
+              .scale(yScale)
+              .orient("left");
+
+        svg.select(".x.axis")
+          .transition()
+          .duration(1000)
+          .call(xAxis);
+
+        svg.select(".y.axis")
+            .transition()
+            .duration(1000)
+            .call(yAxis);
+
         svg.select("path")
             .datum(dataset)
             .transition()
             .duration(1000)
             .attr("d", newline);
-
-        // update axis
-        svg.select(".x.axis")
-              .transition()
-              .duration(1000)
-              .call(xAxis);
-
-        svg.select(".y.axis")
-                .transition()
-                .duration(1000)
-                .call(yAxis);
     }
-
 
     function create_data(driverData) {
         nsamples = 50
@@ -286,35 +274,23 @@ function create(data){
         return (data);
     }
 
+function changeButtonColor(){}
+
 function calculate_x_Value(data){
     var value   = 0;
-    var ct      = 0;
     if(attr["start"]){
-        ct += 1;
         value = value + +data["Start"];
     }
-    if (attr["speeding"]){
-        ct += 1;
-        value = value + +data["Percentage Of Drivers Involved In Fatal Collisions Who Were Speeding"];       
+    else if (attr["percentage unemployement rate"]){
+        value = value + +data["percentage unemployement rate"]; 
     }    
-    if (attr["drinking"]){
-        ct += 1;
-        value = value + +data["Percentage Of Drivers Involved In Fatal Collisions Who Were Alcohol-Impaired"];       
+    else if (attr["percentage graduation rate"]){
+        value = value + +data["percentage graduation rate"];
     }
-    if (attr["distracted"]){
-        ct += 1;
-        value = value + +data["Percentage Of Drivers Involved In Fatal Collisions Who Were Distracted"];       
+    else if (attr["percentage of immigrants"]){
+        value = value + +data["percentage of immigrants"]; 
     }
-    if (attr["repeat"]){
-        ct += 1;
-        value = value + +data["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"];       
-    }
-    if (attr["other"]){
-        ct += 1;
-        value = value + +data["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"];       
-    }
-    // console.log(value /= ct)
-    return value /= ct;
+    return value;
 }
 
 // Checkbox
