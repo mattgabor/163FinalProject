@@ -111,7 +111,6 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
 
     var alternator = 0;
 
-
     var path = d3.geo.path().projection(scale(1,width,height))
     svg.append("g")
       .attr("class", "states")
@@ -125,9 +124,9 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
         return colorScale(fatalities.get(d.id));})
       .attr("d", path)
       .on('click', function(d,i){
-        alternator = (alternator + 1) % 2;
+        //alternator = (alternator + 1) % 2;
 
-        updateTimeline(stateName[d.id], (alternator==0 ? "left" : "right"));
+        //updateTimeline(stateName[d.id], (alternator==0 ? "left" : "right"));
         //if already toggled, untoggle
         if(d3.select(this).attr("fill") == "#FFA500"){
           d3.select(this)
@@ -147,6 +146,14 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
           //console.log(d.id);
           //console.log(stateName[d.id]);
           //updateNeedle(stateName[d.id]);
+        }
+
+        if (numStates >=2){
+          var stateArray = Array.from(statesSelected);
+          console.log(stateArray[0]);
+          console.log(stateArray[1]);
+          updateAll(stateArray[0], stateArray[1]);
+
         }
 
         //console.log(statesSelected);

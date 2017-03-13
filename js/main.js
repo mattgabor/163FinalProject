@@ -35,6 +35,10 @@ function updateAll(leftState, rightState) {
   // updateMap(leftState, rightState);
   // updateTimeline(leftState, rightState);
   // update road Viz
+  console.log(leftState);
+  console.log(rightState);
+  updateTimeline(leftState, "left");
+  updateTimeline(rightState, "right");
   updateRoadVizData(getRowForState(leftState), "left")
   updateRoadVizData(getRowForState(rightState), "right")
 }
