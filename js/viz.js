@@ -6,8 +6,12 @@ var carFile = "data/carPositionsOneSide.csv";
 
 drawLeftRoadAssets();
 drawRightRoadAssets();
-loadRightRoadVizData(0);
-loadLeftRoadVizData(5);
+
+loadInitialRoadVizData(0, "#leftRoadViz", "left");
+loadInitialRoadVizData(1, "#rightRoadViz", "right");
+
+updateRoadVizData(22, "left");
+updateRoadVizData(22, "right");
 
 $("#leftRoadDropdown").change(function() {
   var leftStateName = $("#leftRoadDropdown").find(":selected").text();
