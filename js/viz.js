@@ -183,18 +183,6 @@ function create(data){
               return yScale(d.y);
             });
 
-        // xAxis = d3.svg.axis()
-        //       .scale(xScale)
-        //       .orient("bottom");
-
-        // yAxis = d3.svg.axis()
-        //       .scale(yScale)
-        //       .orient("left");
-
-        // update and transition regression line
-
-        // update axis
-
         xAxis = d3.svg.axis()
               .scale(xScale)
               .orient("bottom");
@@ -213,10 +201,11 @@ function create(data){
             .duration(1000)
             .call(yAxis);
 
+
         svg.select("path")
             .datum(dataset)
-            .transition()
-            .duration(1000)
+            // .transition()
+            // .duration(10)
             .attr("d", newline);
     }
 
