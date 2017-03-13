@@ -33,7 +33,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<strong># Fatalities:</strong> <span style='color:red'>"+ d.y +"</span><br><strong>How much it's affected (%):</strong> <span style='color:red'>"+ d.x +"</span>";
+    return "<strong>State:</strong> <span style='color:red'>"+ d["state"] +"</span><br><strong># Fatalities:</strong> <span style='color:red'>"+ d.y +"</span><br><strong>How much it's affected (%):</strong> <span style='color:red'>"+ d.x +"</span>";
   })
 
 setAttrFalse();
@@ -128,6 +128,13 @@ function create(data){
         .attr("transform", "translate(0," + (h-padding) + ")")
         .call(xAxis);
 
+    svg.append("text")      // text label for the x axis
+        .attr("id", "XText")
+        .attr("x", 500 )
+        .attr("y",  600 )
+        .style("text-anchor", "middle")
+        .text("Please choose an attribute");
+
     svg.append("g")
         .attr("class", "y axis")
         .attr("transform", "translate(" + padding + ",0)")
@@ -143,6 +150,7 @@ function create(data){
 
     d3.select("#percentageunemployementrate")
       .on("click", function(){
+        document.getElementById("XText").innerHTML = "Percentage Unemployed";
         // create new data
         setAttrFalse();
         console.log(attr);
@@ -153,6 +161,7 @@ function create(data){
 
     d3.select("#percentagegraduationrate")
       .on("click", function(){
+        document.getElementById("XText").innerHTML = "Percentage College Graduates";
         // create new data
         setAttrFalse();
         attr["percentage graduation rate"] = true;
@@ -162,6 +171,7 @@ function create(data){
 
     d3.select("#percentageofimmigrants")
       .on("click", function(){
+        document.getElementById("XText").innerHTML = "Percentage Immigrants";
         // create new data
         setAttrFalse();
         attr["percentage of immigrants"] = true;
@@ -273,7 +283,8 @@ function create(data){
             data.push({
                 "yhat": yhat[i],
                 "y": y[i],
-                "x": x[i]
+                "x": x[i],
+                "state": driverData[i]["State"]
             })
         }
         return (data);
