@@ -1,5 +1,5 @@
+// initial car positioning and data setup
 function drawCars(causeData, carData, svgSelector, direction, stateCode) {
-
   var roadSvgContainer = d3.select(svgSelector).selectAll("svg");
 
   causeData.forEach(function(d) {
@@ -84,7 +84,7 @@ function drawCars(causeData, carData, svgSelector, direction, stateCode) {
     setDestinations(stateCode, causeData, direction);
 } // end drawCars
 
-
+// transitions car along path
 function moveCar(car, path, duration, delay) {
   car.transition()
     .delay(delay)
@@ -103,6 +103,7 @@ function translateAlong(path) {
   };
 }
 
+// calculate how many cars to move per state
 function getCarCount(stateData) {
   var speedCars = Math.round(stateData.speeding * 0.1);
   var alcCars = Math.round(stateData.alcohol * 0.1);
@@ -113,6 +114,7 @@ function getCarCount(stateData) {
   return carCount;
 }
 
+// calculates which cars to move when and where
 function setDestinations(stateNum, causeData, direction) {
   console.log(causeData[stateNum])
   var orderOfExecution = [[6, 1, 7, 2, 8], [3, 9, 4], [5, 10]];
@@ -151,6 +153,14 @@ function setDestinations(stateNum, causeData, direction) {
 } // end setDestinations()
 
 
+// called when a user switches states from map or selector
+function updateRoadVizData(stateCode, direction) {
+  d3.csv(causeFile, function(error, causeData) {
+     updateCars(stateCode, causeData, direction);
+  })
+}
+
+// converts data and calls setDestinations to move cars with new data
 function updateCars(stateNum, causeData, direction) {
   causeData.forEach(function(d) {
     d.totalNumber = +d.totalNumber;
