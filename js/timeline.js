@@ -1,10 +1,11 @@
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
+var margin = {top: 40, right: 20, bottom: 30, left: 10},
   width = 512 - margin.left - margin.right,
   height = 786 - margin.top - margin.bottom;
 
 var scaleFactor = 200;
 
 function getRowForState(state){
+  //add 2 to pass to matt
   if(state == "Alabama"){return 0;}
   if(state == "Alaska"){return 1;}
   if(state == "Arizona"){return 2;}
@@ -126,8 +127,7 @@ d3.csv("../data/timeline.csv", function(error, data) {
     currentStateData = data[getRowForState(state)];
     currentStateDataFormatted = formatStateData(currentStateData);
     normalizedStateData = normalizeToAverage(currentStateDataFormatted, nationalAverageFormatted);
-    var leftYPos = 0;
-    var middle = width/2;
+
     var currentSvg;
     if(side == "left"){
       currentSvg = d3.select("#leftTimeline")
@@ -142,37 +142,87 @@ d3.csv("../data/timeline.csv", function(error, data) {
 
     }
 
-      var barTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.year + "</br> " + (d.value*100).toFixed(2);});
+    currentSvg.append("g").append("text")
+      .text("1995")
+      .attr("class","yearLabel")
+      .attr("transform", "translate(0, 100)");
+
+    currentSvg.append("g").append("text")
+      .text("2000")
+      .attr("class","yearLabel")
+      .attr("transform", "translate(0, 265)");
+
+    currentSvg.append("g").append("text")
+      .text("2005")
+      .attr("class","yearLabel")
+      .attr("transform", "translate(0, 430)");
+
+    currentSvg.append("g").append("text")
+      .text("2010")
+      .attr("class","yearLabel")
+      .attr("transform", "translate(0, 595)");
+
+//230
+
+  currentSvg.append("g").append("text")
+      .text("0")
+      .attr("class","axisLabel")
+      .attr("transform", "translate(241,30)");
+
+    currentSvg.append("g").append("text")
+        .text("1")
+        .attr("class","axisLabel")
+        .attr("transform", "translate(441,30)");
+
+      currentSvg.append("g").append("text")
+        .text(".5")
+        .attr("class","axisLabel")
+        .attr("transform", "translate(341,30)");
+
+
+      currentSvg.append("g").append("text")
+          .text("-1")
+          .attr("class","axisLabel")
+          .attr("transform", "translate(41,30)");
+
+        currentSvg.append("g").append("text")
+          .text("-.5")
+          .attr("class","axisLabel")
+          .attr("transform", "translate(141,30)");
+
+      var barTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.year + "</br> " + (d.value).toFixed(2);});
 
       currentSvg.call(barTip);
 
       //vertical 0 axis line
       currentSvg.append("line")
         .attr("x1", width/2)
-        .attr("y1", 0)
+        .attr("y1", 0 + margin.top)
         .attr("x2", width/2)
         .attr("y2", height)
-        .attr("stroke-width", 2)
+        .attr("stroke-width", 3)
         .attr("stroke", "black");
 
       //top line
       currentSvg.append("line")
-        .attr("x1", 0+50)
-        .attr("y1", 0)
-        .attr("x2", width-50)
-        .attr("y2", 0)
+        .attr("x1", margin.left)
+        .attr("y1", 0 + margin.top)
+        .attr("x2", width)
+        .attr("y2", 0 + margin.top)
         .attr("stroke-width", 2)
         .attr("stroke", "black");
 
         //botttom line
         currentSvg.append("line")
-          .attr("x1", 0+50)
+          .attr("x1", 0+margin.bottom)
           .attr("y1", height)
-          .attr("x2", width-50)
+          .attr("x2", width)
           .attr("y2", height)
-          .attr("stroke-width", 2)
+          .attr("stroke-width", 3)
           .attr("stroke", "black");
 
+      var leftYPos = margin.top+9;
+      var middle = width/2;
 
       currentSvg.selectAll("rect")
         .data(normalizedStateData)
@@ -200,7 +250,11 @@ d3.csv("../data/timeline.csv", function(error, data) {
             return width/2;
           }
           })
-        .attr("y", function(){leftYPos = leftYPos+33; return leftYPos;})
+        .attr("y", function(){
+          var retVal = leftYPos;
+          leftYPos = leftYPos+33;
+          return retVal;
+        })
         .attr("width", function(d){
           return Math.abs(d.value*scaleFactor);
         })
@@ -238,12 +292,12 @@ function updateTimeline(state, side){
       svgToBeUpdated = d3.select("#rightTimeline").select("svg");
     }
 
-    var leftYPos = 0;
+    var leftYPos = margin.top+9;
     var middle = width/2;
 
     svgToBeUpdated.selectAll("rect")
       .data(normalizedStateData)
-      .transition().duration(700)
+      .transition().duration(1000)
       .attr("x",function(d){
         if(d.value <0){
           return middle + d.value*scaleFactor;
@@ -251,7 +305,11 @@ function updateTimeline(state, side){
           return middle;
         }
         })
-      .attr("y", function(){leftYPos = leftYPos+33; return leftYPos;})
+      .attr("y", function(){
+        var retVal = leftYPos;
+        leftYPos = leftYPos+33;
+        return retVal;
+      })
       .attr("width", function(d){
         return Math.abs(d.value*scaleFactor);
       })
