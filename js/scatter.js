@@ -165,10 +165,10 @@ function initializeScatter() {
         // .attr("fill","white");
         .attr("fill", function(d){
           if (d["state"] == state1 || d["state"] == state2){
-            return '#000000';
+            return '#FFA500';
           }
           else{
-            return '#1E90FF';
+            return '#000080';
           }
         });
 
