@@ -13,8 +13,7 @@ drawRightRoadAssets();
 loadInitialRoadVizData(0, "#leftRoadViz", "left");
 loadInitialRoadVizData(0, "#rightRoadViz", "right");
 
-// updateRoadVizData(22, "left");
-// updateRoadVizData(22, "right");
+initializeScatter();
 
 $("#leftRoadDropdown").change(function() {
   var leftStateName = $("#leftRoadDropdown").find(":selected").text();
