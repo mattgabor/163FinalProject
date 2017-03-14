@@ -263,17 +263,24 @@
     </div>
 
     <div class="container">
-      <div class="vizTitle">Potentially Correlating Factors</div>
+
       <div class="row">
-        <br>
-        <div>
-        <button type="button" id="percentageunemployementrate">Unemployement Rate</button><br>
-        <br>
-        <button type="button" id="percentagegraduationrate">College Graduation Rate</button><br>
-        <br>
-        <button type="button" id="percentageofimmigrants">Percent Immigrants</button>
+          <div class="vizTitle" style="width:200px;">
+          Potentially Correlating Factors
+          <br><br>
+          <h2>The r-value:</h2>
+          <h3 id="rvalue">0.1026 :: Weak Correlation</h3>
+          <br>
+          <h6>The correlation coefficient is a numerical value between -1 and 1 that expresses the strength of the linear relationship between two variables.When r is closer to 1 it indicates a strong positive relationship. A value of 0 indicates that there is no relationship. Values close to -1 signal a strong negative relationship between the two variables.</h6>
+
+          <div class="col-xs-2" >
+            <h1><br><br><br><br><br><br></h1>
+          </div>
+          <div class="col-xs-10" id="scatter">
+          <button type="button" id="percentageunemployementrate" style="float: right;">Unemployement Rate</button>
+          <button type="button" id="percentagegraduationrate" style="float: right;">College Graduation Rate</button>
+          <button type="button" id="percentageofimmigrants" style="float: right;">Percent Immigrants</button><br>
         </div>
-        <div id="scatter"></div>
       </div>
     </div>
 

@@ -1,4 +1,10 @@
+//r value unemployement: 0.10269059227646
+// r value graduation: -0.64172625634922
+// r value immigrants: -0.49488581269112
+
 function initializeScatter() {
+  var state1 = "California";
+  var state2 = "Texas";
   var driverData;
       d3.csv("data/bad-drivers138_3.csv", function(error, data) {
 
@@ -9,7 +15,7 @@ function initializeScatter() {
           d["percentage of immigrants"]                             = +d["percentage of immigrants"];
           // d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"] = +d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"];
           // d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"]                             = +d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"];
-          d["Start"]                                                = +d["Start"];
+          // d["Start"]                                                = +d["Start"];
          // console.log(d);
         });
           driverData = data;
@@ -23,10 +29,10 @@ function initializeScatter() {
     xAxis,
     yAxis,
     attr = {},
-    padding = 30,
+    padding = 80,
     // scatterWidth = 1024,
     // scatterHeight = 600,
-    scatterMargin = {top: 0, right: 0, bottom: 20, left: 80};
+    scatterMargin = {top: 20, right: 0, bottom: 100, left: 100};
         scatterWidth = 1024 - scatterMargin.left - scatterMargin.right,
         scatterHeight = 650 - scatterMargin.top - scatterMargin.bottom;
 
@@ -45,7 +51,7 @@ function initializeScatter() {
       var numDataPoints = 1000;
 
       //create data points
-      attr['start'] = true;
+      attr['percentage unemployement rate'] = true;
       var dataset = create_data(data);
 
       // function for creation of line
@@ -58,15 +64,13 @@ function initializeScatter() {
           });
 
       ////// Define Scales /////////////////
-       // xScale = d3.scale.linear()
-       //                      .domain([0,d3.max(dataset, function(d){
-       //                        return d.x;
-       //                      })])
-       //                      .range([padding,w - padding*2]);
-
       xScale = d3.scale.linear()
-                            .domain([0,100])
-                            .range([padding, scatterWidth - padding * 2]);
+                    .domain([d3.min(dataset, function(d){
+                      return d.x;
+                    }) - .2,d3.max(dataset, function(d){
+                      return d.x;
+                    }) + 1])
+                    .range([padding, scatterWidth - padding * 2]);
 
       yScale = d3.scale.linear()
                             .domain([0,40]) //y range is reversed because svg
@@ -109,9 +113,7 @@ function initializeScatter() {
           })
           .attr("cy", function(d){
             return yScale(d.y);
-          })
-          .attr("r", 12.5);
-
+          });
 
       // append regression line
       svg.append("path") 
@@ -128,10 +130,10 @@ function initializeScatter() {
       svg.append("text")      // text label for the x axis
           .attr("id", "XText")
           .attr("fill", "black")
-          .attr("x", 500 )
-          .attr("y",  600 )
+          .attr("x", scatterWidth - 500)
+          .attr("y",  scatterHeight - 25)
           .style("text-anchor", "middle")
-          .text("Please choose an attribute");
+          .text("Percentage Unemployed");
 
       svg.append("g")
           .attr("class", "y axis")
@@ -141,17 +143,41 @@ function initializeScatter() {
       svg.append("text")      // text label for the x axis
           .attr("id", "YText")
           .attr("fill", "black")
-          .attr("x", 180 )
-          .attr("y",  30 )
+          .attr("x", scatterWidth - scatterWidth - 200 )
+          .attr("y",  scatterHeight- 500 )
+          .attr("transform", "rotate(-90)")
           .style("text-anchor", "end")
           .text("Number of Fatalities");
-
 
       svg.call(tip);
 
       svg.selectAll(".dot")
           .on('mouseover', tip.show)
           .on('mouseout', tip.hide);
+
+      svg.selectAll(".dot")
+        // .attr("fill","black")
+        // .data(dataset)
+        // .enter()
+        .attr("r", function(d){
+          if (d["state"] == state1 || d["state"] == state2){
+            return 25;
+          }
+          else{
+            return 12.5;
+          }
+        })
+        // .attr("fill","white");
+        .attr("fill", function(d){
+          if (d["state"] == state1 || d["state"] == state2){
+            return '#FFA500';
+          }
+          else{
+            return '#000080';
+          }
+        });
+
+    update(dataset);
   }
 
       d3.select("#percentageunemployementrate")
@@ -163,6 +189,7 @@ function initializeScatter() {
           attr["percentage unemployement rate"] = true;
           dataset = create_data(driverData);
           update(dataset);
+          document.getElementById("rvalue").innerHTML = "0.1026 :: Weak Correlation";
         });
 
       d3.select("#percentagegraduationrate")
@@ -173,6 +200,7 @@ function initializeScatter() {
           attr["percentage graduation rate"] = true;
           dataset = create_data(driverData);
           update(dataset);
+          document.getElementById("rvalue").innerHTML = "-0.6417:: Strong Negative Correlation";
         });
 
       d3.select("#percentageofimmigrants")
@@ -183,6 +211,7 @@ function initializeScatter() {
           attr["percentage of immigrants"] = true;
           dataset = create_data(driverData);
           update(dataset);
+          document.getElementById("rvalue").innerHTML = "-0.4948 :: Mild Negative Correlation";
         });
 
 
@@ -199,7 +228,9 @@ function initializeScatter() {
           // console.log(dataset[0].x);
 
           xScale = d3.scale.linear()
-                    .domain([0,d3.max(dataset, function(d){
+                    .domain([d3.min(dataset, function(d){
+                      return d.x;
+                    }) - .2,d3.max(dataset, function(d){
                       return d.x;
                     }) + 1])
                     .range([padding, scatterWidth - padding * 2]);
@@ -300,10 +331,7 @@ function initializeScatter() {
 
   function calculate_x_Value(data){
       var value   = 0;
-      if(attr["start"]){
-          value = value + +data["Start"];
-      }
-      else if (attr["percentage unemployement rate"]){
+      if (attr["percentage unemployement rate"]){
           value = value + +data["percentage unemployement rate"];
       }
       else if (attr["percentage graduation rate"]){
@@ -314,90 +342,6 @@ function initializeScatter() {
       }
       return value;
   }
-
-  function calculate_Pvalue (array1, array1_size, array2, array2_size) {
-
-      if (array1_size <= 1) {
-          return 1.0;
-      }
-      if (array2_size <= 1) {
-          return 1.0;
-      }
-
-      var mean1 = 0.0;
-      var mean2 = 0.0;
-
-      for (var x = 0; x < array1_size; x++) {
-          mean1 += array1[x];
-      }
-      for (var x = 0; x < array2_size; x++) {
-          mean2 += array2[x];
-      }
-      if (mean1 == mean2) {
-          return 1.0;
-      }
-      mean1 /= array1_size;
-      mean2 /= array2_size;
-
-      var variance1 = 0.0;
-      var variance2 = 0.0;
-
-      for (var x = 0; x < array1_size; x++) {
-          variance1 += (array1[x]-mean1)*(array1[x]-mean1);
-      }
-      for (var x = 0; x < array2_size; x++) {
-          variance2 += (array2[x]-mean2)*(array2[x]-mean2);
-      }
-      if ((variance1 == 0.0) && (variance2 == 0.0)) {
-          return 1.0;
-      }
-      variance1 = variance1/(array1_size-1);
-      variance2 = variance2/(array2_size-1);
-
-      var WELCH_T_STATISTIC = (mean1-mean2)/Math.sqrt(variance1/array1_size+variance2/array2_size);
-      var DEGREES_OF_FREEDOM = Math.pow(((variance1/array1_size+variance2/array2_size),2.0)/((variance1*variance1)/(array1_size*array1_size*(array1_size-1))+(variance2*variance2)/(array2_size*array2_size*(array2_size-1))).toPrecision(6));
-      // console.log(DEGREES_OF_FREEDOM) here is where the NANs start
-
-      var a = DEGREES_OF_FREEDOM/2;
-      var x = DEGREES_OF_FREEDOM/(WELCH_T_STATISTIC*WELCH_T_STATISTIC+DEGREES_OF_FREEDOM);
-      var N = 65535;
-      var h = (x/N).toPrecision(6);
-      var sum1 = 0.0;
-      var sum2 = 0.0;
-      for(var i = 0; i < N; i++) {
-        sum1 += (Math.pow(h * i + h / 2.0,a-1))/(Math.sqrt(1-(h * i + h / 2.0)));
-        sum2 += (Math.pow(h * i,a-1))/(Math.sqrt(1-h * i));
-      }
-      var return_value = ((h / 6.0) * ((Math.pow(x,a-1))/(Math.sqrt(1-x)) + 4.0 * sum1 + 2.0 * sum2))/(Math.exp(lgammal(a)+0.57236494292470009-lgammal(a+0.5)));
-
-      if ((Number.isFinite(return_value) == 0) || (return_value > 1.0)) {
-          return 1.0;
-      } else {
-          return return_value;
-      }
-  }
-
-  function lgammal(xx) {
-      var j;
-      var x;
-      var y;
-      var tmp;
-      var ser;
-
-      var cof = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2,-0.5395239384953e-5];
-
-      x = xx;
-      y = x;
-      tmp = x + 5.5 - (x + 0.5) * Math.log(x + 5.5);
-      ser = 1.000000000190015;
-      for (j=0;j<=5;j++)
-          ser += (cof[j] / ++y);
-      return(Math.log((2.5066282746310005 * ser / x).toPrecision(5)) - tmp);
-  }
-
-  var d1 = [27.5,21.0,19.0,23.6,17.0,17.9,16.9,20.1,21.9,22.6,23.1,19.6,19.0,21.7,21.4];
-  var d2 = [27.1,22.0,20.8,23.4,23.4,23.5,25.8,22.0,24.8,20.2,21.9,22.1,22.9,20.5,24.4];
-
   // console.log(calculate_Pvalue(d1,d1.length,d2,d2,length));
   // Checkbox
 
