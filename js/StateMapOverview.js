@@ -84,7 +84,7 @@ function initializeStateMapOverview(){
   stateName["56"]= "Wyoming";
   stateName["72"]= "Puerto Rico";
 
-  var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["#E0deef","#000080"]);
+  var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#1f3a93"]);
 
   // var color = d3.scale.threshold()
   //   .domain(d3.range(1, 40))
@@ -101,7 +101,7 @@ function initializeStateMapOverview(){
 
    var ticks = [5, 10, 15, 20, 25];
 
-   var posLegendColor = d3.scale.linear().range(["#00FFAE","#FFA500"]);
+   var posLegendColor = d3.scale.linear().range(["#E27928","#F64747"]);
 
    var legendText = ["Left State", "Right State"];
 
