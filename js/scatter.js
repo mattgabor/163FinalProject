@@ -40,7 +40,7 @@ function initializeScatter() {
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      return "<strong>State:</strong> <span style='color:red'>"+ d["state"] +"</span><br><strong># Fatalities:</strong> <span style='color:red'>"+ d.y +"</span><br><strong>How much it's affected (%):</strong> <span style='color:red'>"+ d.x +"</span>";
+      return "<strong style='color:yellow'>State:</strong> <span style='color:white'>"+ d["state"] +"</span><br><strong style='color:yellow'># Fatalities:</strong> <span style='color:white'>"+ d.y +"</span><br><strong style='color:yellow'>How much it's affected (%):</strong> <span style='color:white'>"+ d.x +"</span>";
     })
 
   setAttrFalse();

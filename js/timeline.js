@@ -82,8 +82,10 @@ d3.csv("data/timeline.csv", function(error, data) {
           .attr("class","axisLabel")
           .attr("transform", "translate(141,30)");
 
-      var barTip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.year + "</br> " + (d.value).toFixed(2);});
-
+      var barTip = d3.tip()
+        .attr('class', 'd3-tip').html(function(d) { return "<strong style='color:yellow'>Year:</strong> <span style='color:white'>" + d.year + "</br> " + "</span><br><strong style='color:yellow'>Value: </strong> <span style='color:white'>" + (d.value).toFixed(2) + "</span>";});
+        
+      barTip.direction('e')
       currentSvg.call(barTip);
 
       //vertical 0 axis line
