@@ -16,6 +16,7 @@ function drawLeftRoadAssets() {
     .attr("xlink:href", "img/roadWithLotOnLeft.png")
     .attr("x", 80)
     .attr("y", 40)
+    .attr("height", 600)
     .attr("id", "leftRoad")
 }
 
@@ -31,6 +32,7 @@ function drawRightRoadAssets() {
     .attr("xlink:href", "img/roadWithLotOnLeft.png")
     .attr("x", 80)
     .attr("y", 40)
+    .attr("height", 600)
     .attr("id", "rightRoad")
 }
 
