@@ -1,10 +1,10 @@
 //r value unemployement: 0.10269059227646
 // r value graduation: -0.64172625634922
 // r value immigrants: -0.49488581269112
+var scatterLeftState = "Nevada";
+var scatterRightState = "New York";
 
 function initializeScatter() {
-  var state1 = "California";
-  var state2 = "Texas";
   var driverData;
       d3.csv("data/bad-drivers138_3.csv", function(error, data) {
 
@@ -160,7 +160,7 @@ function initializeScatter() {
         // .data(dataset)
         // .enter()
         .attr("r", function(d){
-          if (d["state"] == state1 || d["state"] == state2){
+          if (d["state"] == scatterLeftState || d["state"] == scatterRightState){
             return 25;
           }
           else{
@@ -169,7 +169,7 @@ function initializeScatter() {
         })
         // .attr("fill","white");
         .attr("fill", function(d){
-          if (d["state"] == state1 || d["state"] == state2){
+          if (d["state"] == scatterLeftState || d["state"] == scatterRightState){
             return '#FFA500';
           }
           else{
