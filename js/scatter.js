@@ -1,3 +1,7 @@
+//r value unemployement: 0.10269059227646
+// r value graduation: -0.64172625634922
+// r value immigrants: -0.49488581269112
+
 function initializeScatter() {
   var state1 = "California";
   var state2 = "Texas";
