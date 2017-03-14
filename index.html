@@ -21,9 +21,9 @@
       <!-- timeline dropdowns -->
       <div class="vizTitle">Timeline View: Difference From National Average by Year</div>
       <div class="row">
-        <div class="col">
-          <select name="stateRight">
-          	<option value="AL">Alabama</option>
+        <div class="col" id="leftTimelineDropdown">
+          <select>
+          	<option selected value="AL">Alabama</option>
           	<option value="AK">Alaska</option>
           	<option value="AZ">Arizona</option>
           	<option value="AR">Arkansas</option>
@@ -76,10 +76,10 @@
           	<option value="WY">Wyoming</option>
           </select>
         </div>
-        <div class="col">
-          <select name="stateLeft">
+        <div class="col" id="rightTimelineDropdown">
+          <select>
           	<option value="AL">Alabama</option>
-          	<option value="AK">Alaska</option>
+          	<option selected value="AK">Alaska</option>
           	<option value="AZ">Arizona</option>
           	<option value="AR">Arkansas</option>
           	<option value="CA">California</option>
@@ -146,7 +146,7 @@
     <div class="row dropdown">
       <div class="col" id="leftRoadDropdown">
         <select>
-        	<option value="AL">Alabama</option>
+        	<option selected value="AL">Alabama</option>
         	<option value="AK">Alaska</option>
         	<option value="AZ">Arizona</option>
         	<option value="AR">Arkansas</option>
@@ -202,7 +202,7 @@
       <div class="col" id="rightRoadDropdown">
         <select>
           <option value="AL">Alabama</option>
-          <option value="AK">Alaska</option>
+          <option selected value="AK">Alaska</option>
           <option value="AZ">Arizona</option>
           <option value="AR">Arkansas</option>
           <option value="CA">California</option>
