@@ -5,15 +5,14 @@ var margin = {top: 40, right: 20, bottom: 30, left: 10},
 var scaleFactor = 200;
 
 function initializeTimeline(){
-  defaultLeftState = "Alabama";
-  defaultRightState = "Alaska";
+  defaultLeftState = "New York";
+  defaultRightState = "Texas";
 
 
 d3.csv("data/timeline.csv", function(error, data) {
   if (error) throw error;
 
-  drawTimeline(defaultLeftState, "left");
-  drawTimeline(defaultRightState, "right");
+
 
   function drawTimeline(state, side){
     nationalAverageFormatted = formatStateData(data[getRowForState("USA")]);
@@ -162,6 +161,9 @@ d3.csv("data/timeline.csv", function(error, data) {
         });
   }
 
+  drawTimeline(defaultLeftState, "left");
+  drawTimeline(defaultRightState, "right");
+
   });
 
     // leftSvg.selectAll("circle")
@@ -172,12 +174,17 @@ d3.csv("data/timeline.csv", function(error, data) {
     //   .attr("r", 2);
 }
 function updateTimeline(state, side){
-    console.log("timeline state " + state)
+    console.log("State before CSV " + state)
     d3.csv("data/timeline.csv", function(error, data) {
 
     nationalAverageFormatted = formatStateData(data[getRowForState("USA")]);
+
+    console.log("State after CSV " + state)
+    console.log(getRowForState(state));
+
     currentStateData = data[getRowForState(state)];
     currentStateDataFormatted = formatStateData(currentStateData);
+
     normalizedStateData = normalizeToAverage(currentStateDataFormatted, nationalAverageFormatted);
     var svgToBeUpdated;
     if(side == "left"){

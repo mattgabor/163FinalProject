@@ -155,6 +155,7 @@ function setDestinations(stateNum, causeData, direction) {
 // called when a user switches states from map or selector
 function updateRoadVizData(stateCode, direction) {
   d3.csv(causeFile, function(error, causeData) {
+    console.log("State title", stateCode);
      updateCars(stateCode, causeData, direction);
   })
 }

@@ -241,8 +241,21 @@ function initializeStateMapOverview() {
         + ", " + "Right State: " + stateDataModel.rightState
         + ", " + stateDataModel.leftStateIsSelected
         + ", " + stateDataModel.rightStateIsSelected);
+
+  updateAll(stateDataModel.rightState, stateDataModel.leftState);
+  updateDropdowns(stateFullToAb[stateDataModel.rightState], stateFullToAb[stateDataModel.leftState]);
   }
-  //change the left state in the data model
+
+  //get state from dropdown left
+  //decolor left
+  //color left for state passed in
+  //change state selected to new state
+
+  //get state from dropdown right
+  //decolor left
+  //color left for state passed in
+  //change state selected to new state
+
 
   //de-color a specific state
   function deColor(stateName, value){

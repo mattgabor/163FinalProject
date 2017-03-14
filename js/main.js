@@ -73,6 +73,7 @@ function updateDropdowns(leftState, rightState) {
 }
 
 function updateAll(leftState, rightState) {
+  console.log("update all: " + leftState +", " + rightState);
   // updateMap(leftState, rightState);
   updateTimeline(leftState, "left");
   updateTimeline(rightState, "right");
