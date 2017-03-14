@@ -5,6 +5,7 @@ var causeFile = "data/bad-drivers138.csv";
 var carFile = "data/carPositionsOneSide.csv";
 
 initializeStateMapOverview();
+
 initializeTimeline();
 
 drawLeftRoadAssets();

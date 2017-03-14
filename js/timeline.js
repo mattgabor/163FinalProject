@@ -155,9 +155,9 @@ d3.csv("data/timeline.csv", function(error, data) {
         .attr("fill", function(d){
           //console.log(d.value);
           if(d.value <0){
-            return "green";
+            return "#1E824C";
           }else{
-            return "red";
+            return "#c91624";
           }
         });
   }
@@ -211,9 +211,9 @@ function updateTimeline(state, side){
       .attr("fill", function(d){
         //console.log(d.value);
         if(d.value <0){
-          return "green";
+          return "#1E824C";
         }else{
-          return "red";
+          return "#c91624";
         }
       })
   });
