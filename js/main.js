@@ -64,8 +64,8 @@ $("#rightTimelineDropdown").change(function() {
 
 function updateDropdowns(leftState, rightState) {
 
-  //console.log(leftState)
-  //console.log(rightState)
+  console.log("updating", leftState)
+  console.log("updating", rightState)
 
   $("#leftTimelineDropdown select").val(leftState)
   $("#rightTimelineDropdown select").val(rightState)

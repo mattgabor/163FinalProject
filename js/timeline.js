@@ -5,14 +5,12 @@ var margin = {top: 40, right: 20, bottom: 30, left: 10},
 var scaleFactor = 200;
 
 function initializeTimeline(){
-  defaultLeftState = "New York";
-  defaultRightState = "Texas";
+  // defaultLeftState = "New York";
+  // defaultRightState = "Texas";
 
 
 d3.csv("data/timeline.csv", function(error, data) {
   if (error) throw error;
-
-
 
   function drawTimeline(state, side){
     nationalAverageFormatted = formatStateData(data[getRowForState("USA")]);
@@ -84,7 +82,7 @@ d3.csv("data/timeline.csv", function(error, data) {
 
       var barTip = d3.tip()
         .attr('class', 'd3-tip').html(function(d) { return "<strong style='color:yellow'>Year:</strong> <span style='color:white'>" + d.year + "</br> " + "</span><br><strong style='color:yellow'>Value: </strong> <span style='color:white'>" + (d.value).toFixed(2) + "</span>";});
-        
+
       barTip.direction('e')
       currentSvg.call(barTip);
 

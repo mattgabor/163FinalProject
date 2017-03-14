@@ -8,6 +8,8 @@ var stateDataModel = {
   rightStateIsSelected: false
 }
 
+var defaultLeftState = "New York";
+var defaultRightState = "Nevada";
 var leftStateColor = "#e27928";
 var rightStateColor = "#f64747";
 var goodRed = "#A31621";
@@ -184,9 +186,9 @@ function initializeStateMapOverview() {
       .on('mouseout', function(d,i){});
 
 
-      updateAll("Alaska", "Alabama");
-      updateDropdowns("AK", "AL")
-
+      // console.log(defaultLeftState)
+      updateAll(defaultLeftState, defaultRightState);
+      updateDropdowns(stateFullToAb[defaultLeftState], stateFullToAb[defaultRightState])
 
   };
 
