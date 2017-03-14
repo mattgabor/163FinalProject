@@ -36,9 +36,15 @@ p.indent {
 }
 
 label {
-  font-size: 16px;
+  font-size: 12px;
   font-family: sans-serif;
-  color: white;
+  fill: black;
+}
+
+text.label {
+  font-size: 14px;
+  font-family: sans-serif;
+  fill: black;
 }
 
 #attribution {
@@ -62,6 +68,18 @@ label {
   font-weight: bold;
 }
 
+/***** map styling *****/
+
+.legend {
+	position: absolute;
+	left: 800px;
+	top: 350px;
+}
+
+#StateMapOverview {
+  width: 1024px;
+  margin: 0 auto;
+}
 
 /***** road styling *****/
 

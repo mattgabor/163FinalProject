@@ -1,6 +1,6 @@
 var numStatesSelected = 2;
-statesSelected[0] = "California";
-statesSelected[1] = "Texas";
+// statesSelected[0] = "California";
+// statesSelected[1] = "Texas";
 
 function changeRightState(stateName){
   statesSelected[0] = stateName;
@@ -84,23 +84,71 @@ function initializeStateMapOverview(){
   stateName["56"]= "Wyoming";
   stateName["72"]= "Puerto Rico";
 
-
-
-
-var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"]);
+  var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["#E0deef","#000080"]);
 
   // var color = d3.scale.threshold()
   //   .domain(d3.range(1, 40))
   //   .range(d3.schemeBlues);
 
-  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+  var margin = {top: 20, right: 0, bottom: 30, left: 0},
     width = 1024 - margin.left - margin.right,
-    height = 786 - margin.top - margin.bottom;
+    height = 700 - margin.top - margin.bottom;
 
   var svg = d3.select("#StateMapOverview").append("svg")
    .attr("width", width)
    .attr("height", height);
 
+
+   var ticks = [5, 10, 15, 20, 25];
+
+   var posLegendColor = d3.scale.linear().range(["#00FFAE","#FFA500"]);
+
+   var legendText = ["Left State", "Right State"];
+
+   // pos legend
+   svg.append("text")
+     .attr("transform", "translate(850, 520)")
+     .text("State Selection");
+
+   var posLegend = svg.append("g")
+      .attr("class", "legend")
+      .attr("width", 140)
+      .attr("transform", "translate(850, 530)")
+    .attr("height", 200)
+      .selectAll("g")
+      .data(posLegendColor.domain().slice().reverse())
+      .enter()
+      .append("g")
+      .attr("transform", function(d, i) { return "translate(0," + i * 18 + ")"; });
+
+    posLegend.append("rect")
+      .attr("width", 15)
+      .attr("height", 15)
+      .style("fill", posLegendColor);
+
+    posLegend.append("text")
+      .data(legendText)
+        .attr("class", "label")
+        .attr("x", 24)
+        .attr("y", 7)
+        .attr("dy", ".35em")
+        .text(function(d) { return d; });
+
+    // hue legend
+    svg.append("text")
+      .attr("transform", "translate(850, 390)")
+      .text("Deaths per 1B Miles");
+
+    svg.append("g")
+      .attr("class", "hueLegend")
+      .attr("transform", "translate(850, 400)");
+
+    var hueLegend = d3.legend.color()
+        .cells([5, 10, 15, 20, 25])
+        .scale(colorScale);
+
+    svg.select(".hueLegend")
+      .call(hueLegend);
 
   function scale (scaleFactor,width,height) {
     return d3.geo.transform({
