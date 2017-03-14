@@ -1,3 +1,59 @@
+function getGeoIdForState(state){
+
+  if (state =="Alabama") return"01";
+  if (state =="Alaska") return"02";
+  if (state =="Arizona") return"04";
+  if (state =="Arkansas") return"05";
+  if (state =="California") return "06";
+  if (state =="Colorado") return "08";
+  if (state =="Connecticut") return "09";
+  if (state =="Delaware") return "10";
+  if (state =="District of Columbia") return "11";
+  if (state =="Florida") return "12";
+  if (state =="Georgia") return "13";
+  if (state =="Hawaii") return "15";
+  if (state =="Idaho") return "16";
+  if (state =="Illinois") return "17";
+  if (state =="Indiana") return "18";
+  if (state =="Iowa") return "19";
+  if (state =="Kansas") return "20";
+  if (state =="Kentucky") return "21";
+  if (state =="Louisiana") return "22";
+  if (state =="Maine") return "23";
+  if (state =="Maryland") return "24";
+  if (state =="Massachusetts") return "25";
+  if (state =="Michigan") return "26";
+  if (state =="Minnesota") return "27";
+  if (state =="Mississippi") return "28";
+  if (state =="Missouri") return "29";
+  if (state =="Montana") return "30";
+  if (state =="Nebraska") return "31";
+  if (state =="Nevada") return "32";
+  if (state =="New Hampshire") return "33";
+  if (state =="New Jersey") return "34";
+  if (state =="New Mexico") return "35";
+  if (state =="New York") return "36";
+  if (state =="North Carolina") return "37";
+  if (state =="North Dakota") return "38";
+  if (state =="Ohio") return "39";
+  if (state =="Oklahoma") return "40";
+  if (state =="Oregon") return "41";
+  if (state =="Pennsylvania") return "42";
+  if (state =="Rhode Island") return "44";
+  if (state =="South Carolina") return "45";
+  if (state =="South Dakota") return "46";
+  if (state =="Tennessee") return "47";
+  if (state =="Texas") return "48";
+  if (state =="Utah") return "49";
+  if (state =="Vermont") return "50";
+  if (state =="Virginia") return "51";
+  if (state =="Washington") return "53";
+  if (state =="West Virginia") return "54";
+  if (state =="Wisconsin") return "55";
+  if (state =="Wyoming") return "56";
+}
+
+
 function getRowForState(state){
   //add 2 to pass to matt
   if(state == "Alabama"){return 0;}
