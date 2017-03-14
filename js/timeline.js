@@ -5,8 +5,8 @@ var margin = {top: 40, right: 20, bottom: 30, left: 10},
 var scaleFactor = 200;
 
 function initializeTimeline(){
-  defaultLeftState = "California";
-  defaultRightState = "Texas";
+  defaultLeftState = "Alabama";
+  defaultRightState = "Alaska";
 
 
 d3.csv("data/timeline.csv", function(error, data) {
@@ -172,6 +172,7 @@ d3.csv("data/timeline.csv", function(error, data) {
     //   .attr("r", 2);
 }
 function updateTimeline(state, side){
+    console.log("timeline state " + state)
     d3.csv("data/timeline.csv", function(error, data) {
 
     nationalAverageFormatted = formatStateData(data[getRowForState("USA")]);
