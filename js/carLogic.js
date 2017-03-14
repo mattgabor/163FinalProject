@@ -155,14 +155,14 @@ function setDestinations(stateNum, causeData, direction) {
 // called when a user switches states from map or selector
 function updateRoadVizData(stateCode, direction) {
   d3.csv(causeFile, function(error, causeData) {
-    console.log("State title", stateCode);
+    //console.log("State title", stateCode);
      updateCars(stateCode, causeData, direction);
   })
 }
 
 // converts data and calls setDestinations to move cars with new data
 function updateCars(stateNum, causeData, direction) {
-  console.log("road state " + getRowForState(stateNum))
+  //console.log("road state " + getRowForState(stateNum))
 
   causeData.forEach(function(d) {
     d.totalNumber = +d.totalNumber;

@@ -116,7 +116,7 @@ function initializeScatter() {
           });
 
       // append regression line
-      svg.append("path") 
+      svg.append("path")
           .datum(dataset)
           .attr("clip-path", "url(#chart-area)")
           .attr("class", "line");
@@ -185,7 +185,7 @@ function initializeScatter() {
           document.getElementById("XText").innerHTML = "Percentage Unemployed";
           // create new data
           setAttrFalse();
-          console.log(attr);
+          //console.log(attr);
           attr["percentage unemployement rate"] = true;
           dataset = create_data(driverData);
           update(dataset);
@@ -223,7 +223,7 @@ function initializeScatter() {
       }
 
       function update(dataset){
-          console.log(dataset);
+          //console(dataset);
 
           // console.log(dataset[0].x);
 

@@ -1,4 +1,5 @@
 var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#1f3a93"]);
+var fatalities = d3.map();
 
 var stateDataModel = {
   leftState: "null",
@@ -142,7 +143,7 @@ function initializeStateMapOverview() {
     });
   }
 
-  var fatalities = d3.map();
+
 
   d3.queue()
     .defer(d3.json, "data/us-10m.v1.json")
@@ -177,43 +178,33 @@ function initializeStateMapOverview() {
         return colorScale(fatalities.get(d.id));})
       .attr("d", path)
       .on('click', function(d,i){
-        // //console.log("click");
-        // //console.log(d3.select(this)[0][0].id);
-         //console.log(fatalities.get(d.id));
         stateClicked(stateName[d.id], fatalities.get(d.id));
-
-
       })
-      .on('mouseover', function(d,i){
-        // //console.log("hover");
+      .on('mouseover', function(d,i){})
+      .on('mouseout', function(d,i){});
 
-      })
-      .on('mouseout', function(d,i){
-        // //console.log("out");
 
-      });
-      stateClicked("New York");
-      stateClicked("Texas");
+      updateAll("Alaska", "Alabama");
+      updateDropdowns("AK", "AL")
+
+
   };
 
   }
 
-  // color("California", "left");
-  // color("Texas", "right");
-
   function stateClicked(stateName, value){
-    console.log("clicked: " + stateName);
-    //console.log(stateName);
-    //console.log();
+    console.log("state clicked before anything happens")
+    printDataModel();
 
     //the state is already selected
     if(stateName == stateDataModel.leftState){
+      console.log("This state is the current left state")
       stateDataModel.leftState = "null";
       stateDataModel.leftStateIsSelected = false;
       deColor(stateName, value);
 
     }else if(stateName == stateDataModel.rightState){
-      console.log("this state was the right state");
+      console.log("This state is the current right state")
       stateDataModel.rightState = "null"
       stateDataModel.rightStateIsSelected = false;
       deColor(stateName, value); //sets back to the id of fatailities or whatever
@@ -238,12 +229,23 @@ function initializeStateMapOverview() {
     }
     console.log("current state data model");
     console.log("Left State: " + stateDataModel.leftState
-        + ", " + "Right State: " + stateDataModel.rightState
-        + ", " + stateDataModel.leftStateIsSelected
-        + ", " + stateDataModel.rightStateIsSelected);
+      + ", " + "Right State: " + stateDataModel.rightState
+      + ", " + stateDataModel.leftStateIsSelected
+      + ", " + stateDataModel.rightStateIsSelected);
 
-  updateAll(stateDataModel.rightState, stateDataModel.leftState);
-  updateDropdowns(stateFullToAb[stateDataModel.rightState], stateFullToAb[stateDataModel.leftState]);
+  console.log("state before update")
+  printDataModel();
+
+  updateAll(stateDataModel.leftState, stateDataModel.rightState);
+  updateDropdowns(stateFullToAb[stateDataModel.leftState], stateFullToAb[stateDataModel.rightState]);
+
+
+  }
+
+  function updateMap(leftState, rightState){
+    console.log("updateMap");
+    deselectBothStates();
+    slectLeftRightStates(leftState, rightState);
   }
 
   //get state from dropdown left
@@ -256,23 +258,75 @@ function initializeStateMapOverview() {
   //color left for state passed in
   //change state selected to new state
 
+  function slectLeftRightStates(leftState, rightState){
+    console.log("selecting left right states", leftState, rightState);
+    stateDataModel.leftState = leftState;
+    stateDataModel.leftStateIsSelected = true;
+    color(leftState, "left");
+    stateDataModel.rightState = rightState;
+    stateDataModel.rightStateIsSelected = true;
+    color(rightState, "right");
+  }
 
-  //de-color a specific state
+  function deselectBothStates(){
+    console.log("Deselecting Both States");
+    if(stateDataModel.leftStateIsSelected){
+      deSelectCurrentStateOnSide("left");
+    }
+    if(stateDataModel.rightStateIsSelected){
+      deSelectCurrentStateOnSide("right");
+    }
+  }
+
+  function deSelectCurrentStateOnSide(side){
+    //console.log("de select current state");
+
+    if (side=="right"){
+      var oldRightState = stateDataModel.rightState;
+      //console.log("old right state", oldRightState);
+      stateDataModel.rightState = "null";
+      stateDataModel.rightStateIsSelected = false;
+      deColor(oldRightState, .5); //TODO: change to real value
+    }else if (side=="left"){
+      var oldLeftState = stateDataModel.leftState;
+      stateDataModel.leftState = "null";
+      stateDataModel.leftStateIsSelected = false;
+      deColor(oldLeftState, .5); //TODO: change to real value
+
+    }else{
+      //alert.("Error: invalid side sepecificed when trying to select state")
+    }
+  }
+
+  //de-color a specific state, not using value?
   function deColor(stateName, value){
+
     console.log("decoloring state for: " + stateName + "with value: " + value);
     //console.log("   #geoID" + getGeoIdForState(stateName));
     var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
-    currentState.attr("fill", colorScale(value));
+    currentState.attr("fill", colorScale(fatalities.get(getGeoIdForState(stateName))));
   }
 
   function color(stateName, side){
-    //console.log("coloring state for id:");
+    console.log("coloring state for: ", stateName);
     //console.log("   #geoID" + getGeoIdForState(stateName));
     var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
     if(side == "right"){
+      console.log(" on right");
       currentState.attr("fill", rightStateColor);
-    }else{
+    }else if(side == "left"){
+      console.log(" on left");
       currentState.attr("fill", leftStateColor);
+    }else{
+      console.error("did not color correctly, error")
     }
 
+  }
+
+  function printDataModel(){
+    console.log("current state data model");
+    console.log("Left State: " + stateDataModel.leftState
+      + ", " + "Right State: " + stateDataModel.rightState
+      + ", " + stateDataModel.leftStateIsSelected
+      + ", " + stateDataModel.rightStateIsSelected);
   }

@@ -4,8 +4,6 @@
 var causeFile = "data/bad-drivers138.csv";
 var carFile = "data/carPositionsOneSide.csv";
 
-initializeStateMapOverview();
-
 initializeTimeline();
 
 drawLeftRoadAssets();
@@ -15,6 +13,9 @@ loadInitialRoadVizData(0, "#leftRoadViz", "left");
 loadInitialRoadVizData(1, "#rightRoadViz", "right");
 
 initializeScatter();
+
+initializeStateMapOverview();
+
 
 $("#leftRoadDropdown").change(function() {
   var leftStateName = $("#leftRoadDropdown").find(":selected").text();
@@ -63,8 +64,8 @@ $("#rightTimelineDropdown").change(function() {
 
 function updateDropdowns(leftState, rightState) {
 
-  console.log(leftState)
-  console.log(rightState)
+  //console.log(leftState)
+  //console.log(rightState)
 
   $("#leftTimelineDropdown select").val(leftState)
   $("#rightTimelineDropdown select").val(rightState)
@@ -74,7 +75,9 @@ function updateDropdowns(leftState, rightState) {
 
 function updateAll(leftState, rightState) {
   console.log("update all: " + leftState +", " + rightState);
-  // updateMap(leftState, rightState);
+  if(leftState != "null" && rightState != "null"){
+    updateMap(leftState, rightState);
+  }
   updateTimeline(leftState, "left");
   updateTimeline(rightState, "right");
   updateRoadVizData(getRowForState(leftState), "left")
