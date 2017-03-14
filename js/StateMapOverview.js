@@ -1,3 +1,33 @@
+var numStatesSelected = 2;
+statesSelected[0] = "California";
+statesSelected[1] = "Texas";
+
+function changeRightState(stateName){
+  statesSelected[0] = stateName;
+  var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
+  highlightState(stateName);
+}
+
+function changeLeftState(stateName){
+  statesSelected[1] = stateName;
+  var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
+  highlightState(stateName);
+}
+
+function highlightState(stateName) {
+  console.log("In change highlightState");
+  console.log(stateName);
+
+  var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
+  console.log("#geoID" + getGeoIdForState(stateName));
+  //numStates++;
+  currentState
+  .attr("fill", "#FFA500");
+  //statesSelected.add(stateName[d.id]);
+}
+
+
+
 function initializeStateMapOverview(){
 
   var stateName = {};
@@ -96,8 +126,11 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
       console.log("error");
     }
 
-    var numStates = 0;
-    var statesSelected = new Set();
+
+
+    highlightState("California", "left");
+    highlightState("Texas", "right");
+
 
     var alternator = 0;
 
@@ -118,7 +151,6 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
       .attr("d", path)
       .on('click', function(d,i){
         //alternator = (alternator + 1) % 2;
-
         //updateTimeline(stateName[d.id], (alternator==0 ? "left" : "right"));
         //if already toggled, untoggle
         if(d3.select(this).attr("fill") == "#FFA500"){
@@ -169,13 +201,3 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
   };
 
   }
-
-function highlightState(stateName) {
-  console.log("In change highlightState");
-  console.log(stateName);
-
-  var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
-  console.log("#geoID" + getGeoIdForState(stateName));
-
-
-}
