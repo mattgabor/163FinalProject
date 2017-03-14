@@ -55,6 +55,8 @@ function initializeStateMapOverview(){
   stateName["72"]= "Puerto Rico";
 
 
+
+
 var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"]);
 
   // var color = d3.scale.threshold()
@@ -84,30 +86,18 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
   d3.queue()
     .defer(d3.json, "data/us-10m.v1.json")
     .defer(d3.csv, "data/bad-drivers138.csv", function(d) {
-      //console.log(d.state);
-      //console.log(d.geoID);
-      //console.log(d.totalNumber);
       fatalities.set(d.geoID, +d.totalNumber); })
     .await(ready);
 
 
   function ready(error, us){
 
-    // for(var i=0;i<51;i++){
-    //   console.log(colorScale(i));
-    // }
-
-    //console.log(us);
-    //console.table(us);
-    //console.log("fatalities");
-    //console.table(fatalities);
     if(error){
       console.log("error");
     }
 
     var numStates = 0;
     var statesSelected = new Set();
-    //console.log(statesSelected);
 
     var alternator = 0;
 
@@ -117,6 +107,9 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
       .selectAll("path")
       .data(topojson.feature(us, us.objects.states).features)
       .enter().append("path")
+      .attr("id", function(d) {
+        return "geoID" + d.id;
+      })
       .attr("fill", function(d) {
         // console.log("TotalNumber");
         // console.log(fatalities.get(d.id));
@@ -143,9 +136,6 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
           d3.select(this)
           .attr("fill", "#FFA500");
           statesSelected.add(stateName[d.id]);
-          //console.log(d.id);
-          //console.log(stateName[d.id]);
-          //updateNeedle(stateName[d.id]);
         }
 
         if (numStates >=2){
@@ -153,12 +143,12 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
           console.log(stateArray[0]);
           console.log(stateArray[1]);
           updateAll(stateArray[0], stateArray[1]);
-
         }
-
-        //console.log(statesSelected);
-
       })
+      .on("contextmenu", function (d, i) {
+            d3.event.preventDefault();
+            highlightState("California");
+        })
       .on('mouseover', function(d,i){
         if(d3.select(this).attr("fill") == "#FFA500"){
           //stay the same
@@ -175,74 +165,17 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
           .attr("fill", function(d) {
           return colorScale(fatalities.get(d.id));});
         }
-
       });
   };
 
   }
 
-//   d3.json("../data/us-10m.v1.json", function (error, us){
-//     var numStates = 0;
-//     var statesSelected = new Set();
-//     console.log(statesSelected);
-//
-//     var path = d3.geo.path().projection(scale(0.5,width,height))
-//     svg.append("g")
-//       .attr("class", "states")
-//       .selectAll("path")
-//       .data(topojson.feature(us, us.objects.states).features)
-//       .enter().append("path")
-//       .attr("fill", "gray")
-//       .attr("d", path)
-//       .on('click', function(d,i){
-//         //if already toggled, untoggle
-//         if(d3.select(this).attr("fill") == "#003399"){
-//           d3.select(this)
-//           .attr("fill", "gray");
-//           statesSelected.delete(stateName[d.id]);
-//           numStates--;
-//         //if not toggled, check if two state are already selected
-//         }else if (numStates >=2){
-//           console.log("already two states selected");
-//         //else select it
-//         }else{
-//           numStates++;
-//           d3.select(this)
-//           .attr("fill", "#003399");
-//           statesSelected.add(stateName[d.id]);
-//           console.log(d.id);
-//           console.log(stateName[d.id]);
-//           //updateNeedle(stateName[d.id]);
-//         }
-//
-//         console.log(statesSelected);
-//
-//       })
-//       .on('mouseover', function(d,i){
-//         if(d3.select(this).attr("fill") == "#003399"){
-//           //stay the same
-//         }else{
-//           d3.select(this)
-//           .attr("fill", "#0099cc");
-//         }
-//       })
-//       .on('mouseout', function(d,i){
-//         if(d3.select(this).attr("fill") == "#003399"){
-//           //stay the same
-//         }else{
-//           d3.select(this)
-//           .attr("fill", "gray");
-//         }
-//
-//       });
-//   });
-// }
+function highlightState(stateName) {
+  console.log("In change highlightState");
+  console.log(stateName);
 
-/**
-  changes the fill of all states back to default
-*/
-function clearStates(){
-  d3.selectAll(".states")
-    .selectAll("path")
-    .attr("fill", "gray");
+  var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
+  console.log("#geoID" + getGeoIdForState(stateName));
+
+
 }
