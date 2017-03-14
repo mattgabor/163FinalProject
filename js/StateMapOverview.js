@@ -1,31 +1,26 @@
-var numStatesSelected = 2;
-statesSelected[0] = "California";
-statesSelected[1] = "Texas";
+var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#1f3a93"]);
+// //color a specific sate for left state
+//
+// function changeState(newState, side){
+//   var oldState;
+//   if (side == "right"){
+//     oldState = statesSelected[0];
+//     statesSelected[0] = newState;
+//   }else{
+//     oldState = statesSelected[1];
+//     statesSelected[1] = newState;
+//   }
 
-function changeRightState(stateName){
-  statesSelected[0] = stateName;
-  var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
-  highlightState(stateName);
+var stateDataModel = {
+  leftState: "null",
+  rightState: "null",
+  leftStateIsSelected: false,
+  rightStateIsSelected: false
 }
 
-function changeLeftState(stateName){
-  statesSelected[1] = stateName;
-  var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
-  highlightState(stateName);
-}
-
-function highlightState(stateName) {
-  console.log("In change highlightState");
-  console.log(stateName);
-
-  var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
-  console.log("#geoID" + getGeoIdForState(stateName));
-  //numStates++;
-  currentState
-  .attr("fill", "#FFA500");
-  //statesSelected.add(stateName[d.id]);
-}
-
+var leftStateColor = "#e27928";
+var rightStateColor = "#f64747";
+var goodRed = "#A31621";
 
 
 function initializeStateMapOverview(){
@@ -87,7 +82,7 @@ function initializeStateMapOverview(){
 
 
 
-var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"]);
+
 
   // var color = d3.scale.threshold()
   //   .domain(d3.range(1, 40))
@@ -123,14 +118,8 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
   function ready(error, us){
 
     if(error){
-      console.log("error");
+      //console.log("error");
     }
-
-
-
-    highlightState("California", "left");
-    highlightState("Texas", "right");
-
 
     var alternator = 0;
 
@@ -143,61 +132,98 @@ var colorScale = d3.scale.linear().domain([5.9,23.9]).range(["white","#000080"])
       .attr("id", function(d) {
         return "geoID" + d.id;
       })
+      .attr("stroke", "white")
+      .attr("stroke-width", 1)
       .attr("fill", function(d) {
-        // console.log("TotalNumber");
-        // console.log(fatalities.get(d.id));
-        // console.log(colorScale(fatalities.get(d.id)));
+        // //console.log("TotalNumber");
+        // //console.log(fatalities.get(d.id));
+        // //console.log(colorScale(fatalities.get(d.id)));
         return colorScale(fatalities.get(d.id));})
       .attr("d", path)
       .on('click', function(d,i){
-        //alternator = (alternator + 1) % 2;
-        //updateTimeline(stateName[d.id], (alternator==0 ? "left" : "right"));
-        //if already toggled, untoggle
-        if(d3.select(this).attr("fill") == "#FFA500"){
-          d3.select(this)
-          .attr("fill", function(d) {
-          return colorScale(fatalities.get(d.id));})
-          statesSelected.delete(stateName[d.id]);
-          numStates--;
-        //if not toggled, check if two state are already selected
-        }else if (numStates >=2){
-          console.log("already two states selected");
-        //else select it
-        }else{
-          numStates++;
-          d3.select(this)
-          .attr("fill", "#FFA500");
-          statesSelected.add(stateName[d.id]);
-        }
+        // //console.log("click");
+        // //console.log(d3.select(this)[0][0].id);
+         //console.log(fatalities.get(d.id));
+        stateClicked(stateName[d.id], fatalities.get(d.id));
 
-        if (numStates >=2){
-          var stateArray = Array.from(statesSelected);
-          console.log(stateArray[0]);
-          console.log(stateArray[1]);
-          updateAll(stateArray[0], stateArray[1]);
-        }
+
       })
-      .on("contextmenu", function (d, i) {
-            d3.event.preventDefault();
-            highlightState("California");
-        })
       .on('mouseover', function(d,i){
-        if(d3.select(this).attr("fill") == "#FFA500"){
-          //stay the same
-        }else{
-          d3.select(this)
-          .attr("fill", "#0099cc");
-        }
+        // //console.log("hover");
+
       })
       .on('mouseout', function(d,i){
-        if(d3.select(this).attr("fill") == "#FFA500"){
-          //stay the same
-        }else{
-          d3.select(this)
-          .attr("fill", function(d) {
-          return colorScale(fatalities.get(d.id));});
-        }
+        // //console.log("out");
+
       });
+      stateClicked("New York");
+      stateClicked("Texas");
   };
+
+  }
+
+  // color("California", "left");
+  // color("Texas", "right");
+
+  function stateClicked(stateName, value){
+    console.log("clicked: " + stateName);
+    //console.log(stateName);
+    //console.log();
+
+    //the state is already selected
+    if(stateName == stateDataModel.leftState){
+      stateDataModel.leftState = "null";
+      stateDataModel.leftStateIsSelected = false;
+      deColor(stateName, value);
+
+    }else if(stateName == stateDataModel.rightState){
+      console.log("this state was the right state");
+      stateDataModel.rightState = "null"
+      stateDataModel.rightStateIsSelected = false;
+      deColor(stateName, value); //sets back to the id of fatailities or whatever
+    }else{
+      //state that is clicked is not selected
+      //check to see which state has a slot
+      if(!stateDataModel.leftStateIsSelected){
+        stateDataModel.leftState = stateName;
+        stateDataModel.leftStateIsSelected = true;
+        color(stateName, "left");
+
+        //change left state to passed in state
+      }else if(!stateDataModel.rightStateIsSelected){
+        //change left state to passed in state
+        stateDataModel.rightState = stateName;
+        stateDataModel.rightStateIsSelected = true;
+        color(stateName, "right");
+      }else{
+        //no states free
+        alert("Please De-select a state before selecting another one");
+      }
+    }
+    console.log("current state data model");
+    console.log("Left State: " + stateDataModel.leftState
+        + ", " + "Right State: " + stateDataModel.rightState
+        + ", " + stateDataModel.leftStateIsSelected
+        + ", " + stateDataModel.rightStateIsSelected);
+  }
+  //change the left state in the data model
+
+  //de-color a specific state
+  function deColor(stateName, value){
+    console.log("decoloring state for: " + stateName + "with value: " + value);
+    //console.log("   #geoID" + getGeoIdForState(stateName));
+    var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
+    currentState.attr("fill", colorScale(value));
+  }
+
+  function color(stateName, side){
+    //console.log("coloring state for id:");
+    //console.log("   #geoID" + getGeoIdForState(stateName));
+    var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
+    if(side == "right"){
+      currentState.attr("fill", rightStateColor);
+    }else{
+      currentState.attr("fill", leftStateColor);
+    }
 
   }
