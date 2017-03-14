@@ -4,8 +4,19 @@ body {
   font-family: sans-serif;
   width: 100%;
   height: 100%;
+  position: relative;
 }
-*/
+
+#section1 {padding-top:50px;height:800px;color: #fff; border: 2px solid blue}
+#section2 {padding-top:50px;height:900px;color: #fff; border: 2px solid red}
+#section3 {padding-top:50px;height:900px;color: #fff; border: 2px solid green;}
+#section4 {padding-top:50px;height:9000px;color: #fff; border: 2px solid purple;}
+
+svg {
+  display: block;
+  margin: auto;
+}
+
 h2 {
   text-align: center;
 }
@@ -83,18 +94,6 @@ text.label {
 
 /***** road styling *****/
 
-#leftRoad {
-  height: 600px;
-}
-
-#rightRoad {
-  height: 600px;
-}
-
-.roadViz {
-  width: 500px;
-}
-
 .container {
   margin: 0 auto;
 }
@@ -113,7 +112,8 @@ text.label {
 select {
   display: block;
   margin: 30px auto 0 auto;
-  font-size: 22px;
+  font-size: 20px;
+  color: black;
 }
 
 .factorLabel {
@@ -161,29 +161,30 @@ select {
 
 }
 
-/*body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-    background-color: #434343;
-    background-image:linear-gradient(#434343, #282828);
-}*/
-
-.spaceBruh { margin-top: 600px; }
+/*.spaceBruh { margin-top: 600px; }*/
 
 #scatter {
-  background-color: grey;
-  background-image:       linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
-  height: 75%;
-  background-size:50px 50px;
+  /*background-color: grey;*/
+  /*background-image:       linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);*/
+  /*height: 75%;*/
+  /*background-size:50px 50px;*/
 }
 
 .gridLines {
-  position:absolute;
-  bottom:10px;
-  right:10px;
+  /*position:absolute;*/
+  /*bottom:10px;*/
+  /*right:10px;*/
   text-decoration: none;
   color: #ffffff;
+}
+
+#rvalSection {
+  color: black;
+  height: 600px;
+}
+
+.scatterButton {
+  margin-left: 10px;
 }
 
 .d3-tip {

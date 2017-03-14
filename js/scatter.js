@@ -29,12 +29,12 @@ function initializeScatter() {
     xAxis,
     yAxis,
     attr = {},
-    padding = 80,
+    padding = 20,
     // scatterWidth = 1024,
     // scatterHeight = 600,
     scatterMargin = {top: 20, right: 0, bottom: 100, left: 100};
         scatterWidth = 1024 - scatterMargin.left - scatterMargin.right,
-        scatterHeight = 650 - scatterMargin.top - scatterMargin.bottom;
+        scatterHeight = 700 - scatterMargin.top - scatterMargin.bottom;
 
   var tip = d3.tip()
     .attr('class', 'd3-tip')
@@ -116,7 +116,7 @@ function initializeScatter() {
           });
 
       // append regression line
-      svg.append("path") 
+      svg.append("path")
           .datum(dataset)
           .attr("clip-path", "url(#chart-area)")
           .attr("class", "line");
