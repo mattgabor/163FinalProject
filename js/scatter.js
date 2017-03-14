@@ -25,10 +25,10 @@ function initializeScatter() {
     xAxis,
     yAxis,
     attr = {},
-    padding = 30,
+    padding = 80,
     // scatterWidth = 1024,
     // scatterHeight = 600,
-    scatterMargin = {top: 10, right: 0, bottom: 50, left: 80};
+    scatterMargin = {top: 20, right: 0, bottom: 100, left: 100};
         scatterWidth = 1024 - scatterMargin.left - scatterMargin.right,
         scatterHeight = 650 - scatterMargin.top - scatterMargin.bottom;
 
@@ -126,8 +126,8 @@ function initializeScatter() {
       svg.append("text")      // text label for the x axis
           .attr("id", "XText")
           .attr("fill", "black")
-          .attr("x", scatterWidth - 350)
-          .attr("y",  scatterHeight)
+          .attr("x", scatterWidth - 500)
+          .attr("y",  scatterHeight - 25)
           .style("text-anchor", "middle")
           .text("Percentage Unemployed");
 
@@ -139,8 +139,9 @@ function initializeScatter() {
       svg.append("text")      // text label for the x axis
           .attr("id", "YText")
           .attr("fill", "black")
-          .attr("x", 180 )
-          .attr("y",  30 )
+          .attr("x", scatterWidth - scatterWidth - 200 )
+          .attr("y",  scatterHeight- 500 )
+          .attr("transform", "rotate(-90)")
           .style("text-anchor", "end")
           .text("Number of Fatalities");
 
