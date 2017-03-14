@@ -189,7 +189,7 @@ function initializeScatter() {
           attr["percentage unemployement rate"] = true;
           dataset = create_data(driverData);
           update(dataset);
-          document.getElementById("rvalue").innerHTML = "0.1026 :: Weak Correlation";
+          document.getElementById("rvalue").innerHTML = "r = 0.103: Very Weak Correlation";
         });
 
       d3.select("#percentagegraduationrate")
@@ -200,7 +200,7 @@ function initializeScatter() {
           attr["percentage graduation rate"] = true;
           dataset = create_data(driverData);
           update(dataset);
-          document.getElementById("rvalue").innerHTML = "-0.6417:: Strong Negative Correlation";
+          document.getElementById("rvalue").innerHTML = "r = -0.642: Strong Neg Correlation";
         });
 
       d3.select("#percentageofimmigrants")
@@ -211,7 +211,7 @@ function initializeScatter() {
           attr["percentage of immigrants"] = true;
           dataset = create_data(driverData);
           update(dataset);
-          document.getElementById("rvalue").innerHTML = "-0.4948 :: Mild Negative Correlation";
+          document.getElementById("rvalue").innerHTML = "r = -0.495: Mild Neg Correlation";
         });
 
 

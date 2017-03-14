@@ -8,8 +8,8 @@ var stateDataModel = {
   rightStateIsSelected: false
 }
 
-var defaultLeftState = "New York";
-var defaultRightState = "Nevada";
+var defaultLeftState = "Nevada";
+var defaultRightState = "New York";
 var leftStateColor = "#e27928";
 var rightStateColor = "#f64747";
 var goodRed = "#A31621";

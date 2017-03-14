@@ -214,6 +214,24 @@ select {
   height: 600px;
 }
 
+#rvalue {
+  font-size: 18px;
+  /*text-align: left;*/
+  font-family: sans-serif;
+  color: black;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.rValInstructions {
+  font-size: 15px;
+  text-align: center;
+  text-align: justify;
+  font-family: sans-serif;
+  color: black;
+  font-weight: 500;
+}
+
 .scatterButton {
   margin-left: 10px;
 }
