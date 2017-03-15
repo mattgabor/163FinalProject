@@ -33,8 +33,8 @@ var scatterSvg,
   // scatterWidth = 1024,
   // scatterHeight = 600,
   scatterMargin = {top: 20, right: 0, bottom: 100, left: 100};
-      scatterWidth = 900 - scatterMargin.left - scatterMargin.right,
-      scatterHeight = 700 - scatterMargin.top - scatterMargin.bottom;
+      scatterWidth = 1100 - scatterMargin.left - scatterMargin.right,
+      scatterHeight = 800 - scatterMargin.top - scatterMargin.bottom;
 
 var tip = d3.tip()
   .attr('class', 'd3-tip')
@@ -176,8 +176,9 @@ function create(data) {
         .attr("id", "XText")
         .attr("fill", "black")
         .attr("x", scatterWidth - 500)
-        .attr("y",  scatterHeight - 25)
+        .attr("y",  scatterHeight - 20)
         .style("text-anchor", "middle")
+        .style("font-size", "16px")
         .text("Percentage Unemployed");
 
     scatterSvg.append("g")
@@ -188,10 +189,11 @@ function create(data) {
     scatterSvg.append("text")      // text label for the x axis
         .attr("id", "YText")
         .attr("fill", "black")
-        .attr("x", scatterWidth - scatterWidth - 200 )
-        .attr("y",  scatterHeight- 550 )
+        .attr("x", scatterWidth - scatterWidth - 250 )
+        .attr("y",  22)
         .attr("transform", "rotate(-90)")
         .style("text-anchor", "end")
+        .style("font-size", "16px")
         .text("Number of Fatalities");
 
     scatterSvg.call(tip);
