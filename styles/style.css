@@ -17,21 +17,28 @@ body {
   color: #fff;
 }
 
+hr {
+  border: none;
+  color: #222;
+  background-color: #222;
+  height: 3px;
+}
+
 #section2 {
-  border-top: solid #b7b7b7 4px;
+  /*border-top: solid #b7b7b7 4px;*/
   padding-top:50px;
   height:1000px;
   color: #fff;
 }
 
 #section3 {
-  border-top: solid #b7b7b7 4px;
+  /*border-top: solid #b7b7b7 4px;*/
   padding-top:50px;
   height:870px;
   color: #fff;
 }
 #section4 {
-  border-top: solid #b7b7b7 4px;
+  /*border-top: solid #b7b7b7 4px;*/
   padding-top:50px;
   height:820px;
   color: #fff;
