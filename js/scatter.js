@@ -33,7 +33,7 @@ var scatterSvg,
   // scatterWidth = 1024,
   // scatterHeight = 600,
   scatterMargin = {top: 20, right: 0, bottom: 100, left: 100};
-      scatterWidth = 1024 - scatterMargin.left - scatterMargin.right,
+      scatterWidth = 900 - scatterMargin.left - scatterMargin.right,
       scatterHeight = 700 - scatterMargin.top - scatterMargin.bottom;
 
 var tip = d3.tip()
@@ -85,8 +85,8 @@ function create(data) {
                   .orient("left");
     // create svg
     scatterSvg = d3.select("#scatter")
-                .attr('class', 'gridLines')
                 .append("svg")
+                .attr("id", "scatterSvg")
                 .attr("width", scatterWidth)
                 .attr("height", scatterHeight);
 
@@ -125,7 +125,7 @@ function create(data) {
     scatterSvg.append("foreignObject")
       .attr("width", 600)
       .attr("height", 100)
-      .attr("x", 180)
+      .attr("x", 80)
       .attr("y", 40)
       .append("xhtml:div")
       .attr("class", "scatterButtons")

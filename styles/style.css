@@ -8,7 +8,7 @@ body {
 }
 
 .container-fluid {
-  width: 1450px !important;
+  width: 1325px !important;
 }
 
 #section1 {
@@ -203,12 +203,14 @@ select {
   background-size:50px 50px;
 }
 
-.gridLines {
+#scatterSvg {
   /*position:absolute;*/
   /*bottom:10px;*/
   /*right:10px;*/
-  text-decoration: none;
-  color: #ffffff;
+  display: inline;
+  margin-left: 30px;
+  /*text-decoration: none;*/
+  /*color: #ffffff;*/
 }
 
 #rvalSection {
