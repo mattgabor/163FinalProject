@@ -217,13 +217,16 @@ function initializeStateMapOverview() {
         stateDataModel.leftState = stateName;
         stateDataModel.leftStateIsSelected = true;
         color(stateName, "left");
-
+        updateAll(stateDataModel.leftState, stateDataModel.rightState);
+        updateDropdowns(stateFullToAb[stateDataModel.leftState], stateFullToAb[stateDataModel.rightState]);
         //change left state to passed in state
       }else if(!stateDataModel.rightStateIsSelected){
         //change left state to passed in state
         stateDataModel.rightState = stateName;
         stateDataModel.rightStateIsSelected = true;
         color(stateName, "right");
+        updateAll(stateDataModel.leftState, stateDataModel.rightState);
+        updateDropdowns(stateFullToAb[stateDataModel.leftState], stateFullToAb[stateDataModel.rightState]);
       }else{
         //no states free
         alert("Please deselect a state before selecting another one.");
@@ -238,8 +241,8 @@ function initializeStateMapOverview() {
   console.log("state before update")
   printDataModel();
 
-  updateAll(stateDataModel.leftState, stateDataModel.rightState);
-  updateDropdowns(stateFullToAb[stateDataModel.leftState], stateFullToAb[stateDataModel.rightState]);
+  // updateAll(stateDataModel.leftState, stateDataModel.rightState);
+  // updateDropdowns(stateFullToAb[stateDataModel.leftState], stateFullToAb[stateDataModel.rightState]);
 
 
   }

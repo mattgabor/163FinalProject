@@ -119,7 +119,7 @@ function setDestinations(stateNum, causeData, direction) {
   var orderOfExecution = [[6, 1, 7, 2, 8], [3, 9, 4], [5, 10]];
   var delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
   var durations = [3000, 4000, 5000, 6000, 7000, 6000, 7000, 8000, 9000, 10000]
-
+  
   var stateCarCount = causeData[stateNum].carCount;
   var allExecutions = [orderOfExecution[0], orderOfExecution[1], orderOfExecution[2]];
 

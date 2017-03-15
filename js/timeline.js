@@ -178,6 +178,8 @@ function updateTimeline(state, side){
     d3.csv("data/timeline.csv", function(error, data) {
 
     nationalAverageFormatted = formatStateData(data[getRowForState("USA")]);
+    console.log("-------------")
+    console.log(nationalAverageFormatted)
 
     //console.log("State after CSV " + state)
     //console.log(getRowForState(state));
