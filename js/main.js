@@ -12,7 +12,7 @@ drawRightRoadAssets();
 loadInitialRoadVizData(0, "#leftRoadViz", "left");
 loadInitialRoadVizData(1, "#rightRoadViz", "right");
 
-initializeScatter();
+// initializeScatter();
 
 initializeStateMapOverview();
 
@@ -82,4 +82,5 @@ function updateAll(leftState, rightState) {
   updateTimeline(rightState, "right");
   updateRoadVizData(getRowForState(leftState), "left")
   updateRoadVizData(getRowForState(rightState), "right")
+  updateScatter(leftState,rightState)
 }
