@@ -346,3 +346,10 @@ function initializeScatter() {
   // Checkbox
 
 }
+
+
+function updateScatter(lhs,rhs){
+  scatterLeftState = lhs;
+  scatterRightState = rhs;
+  initializeScatter();
+}
