@@ -157,7 +157,7 @@ function initializeStateMapOverview() {
   function ready(error, us){
 
     if(error){
-      //console.log("error");
+      ////console.log("error");
     }
 
     var alternator = 0;
@@ -174,9 +174,9 @@ function initializeStateMapOverview() {
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .attr("fill", function(d) {
-        // //console.log("TotalNumber");
-        // //console.log(fatalities.get(d.id));
-        // //console.log(colorScale(fatalities.get(d.id)));
+        // ////console.log("TotalNumber");
+        // ////console.log(fatalities.get(d.id));
+        // ////console.log(colorScale(fatalities.get(d.id)));
         return colorScale(fatalities.get(d.id));})
       .attr("d", path)
       .on('click', function(d,i){
@@ -186,7 +186,7 @@ function initializeStateMapOverview() {
       .on('mouseout', function(d,i){});
 
 
-      // console.log(defaultLeftState)
+      // //console.log(defaultLeftState)
       updateAll(defaultLeftState, defaultRightState);
       updateDropdowns(stateFullToAb[defaultLeftState], stateFullToAb[defaultRightState])
 
@@ -195,18 +195,18 @@ function initializeStateMapOverview() {
   }
 
   function stateClicked(stateName, value){
-    console.log("state clicked before anything happens")
-    printDataModel();
+    //console.log("state clicked before anything happens")
+    // printDataModel();
 
     //the state is already selected
     if(stateName == stateDataModel.leftState){
-      console.log("This state is the current left state")
+      //console.log("This state is the current left state")
       stateDataModel.leftState = "null";
       stateDataModel.leftStateIsSelected = false;
       deColor(stateName, value);
 
     }else if(stateName == stateDataModel.rightState){
-      console.log("This state is the current right state")
+      //console.log("This state is the current right state")
       stateDataModel.rightState = "null"
       stateDataModel.rightStateIsSelected = false;
       deColor(stateName, value); //sets back to the id of fatailities or whatever
@@ -232,9 +232,9 @@ function initializeStateMapOverview() {
         alert("Please deselect a state before selecting another one.");
       }
     }
-    
-  console.log("state before update")
-  printDataModel();
+
+  //console.log("state before update")
+  // printDataModel();
 
   // updateAll(stateDataModel.leftState, stateDataModel.rightState);
   // updateDropdowns(stateFullToAb[stateDataModel.leftState], stateFullToAb[stateDataModel.rightState]);
@@ -243,7 +243,7 @@ function initializeStateMapOverview() {
   }
 
   function updateMap(leftState, rightState){
-    console.log("updateMap");
+    //console.log("updateMap");
     deselectBothStates();
     slectLeftRightStates(leftState, rightState);
   }
@@ -259,7 +259,7 @@ function initializeStateMapOverview() {
   //change state selected to new state
 
   function slectLeftRightStates(leftState, rightState){
-    console.log("selecting left right states", leftState, rightState);
+    //console.log("selecting left right states", leftState, rightState);
     stateDataModel.leftState = leftState;
     stateDataModel.leftStateIsSelected = true;
     color(leftState, "left");
@@ -269,7 +269,7 @@ function initializeStateMapOverview() {
   }
 
   function deselectBothStates(){
-    console.log("Deselecting Both States");
+    //console.log("Deselecting Both States");
     if(stateDataModel.leftStateIsSelected){
       deSelectCurrentStateOnSide("left");
     }
@@ -279,11 +279,11 @@ function initializeStateMapOverview() {
   }
 
   function deSelectCurrentStateOnSide(side){
-    //console.log("de select current state");
+    ////console.log("de select current state");
 
     if (side=="right"){
       var oldRightState = stateDataModel.rightState;
-      //console.log("old right state", oldRightState);
+      ////console.log("old right state", oldRightState);
       stateDataModel.rightState = "null";
       stateDataModel.rightStateIsSelected = false;
       deColor(oldRightState, .5); //TODO: change to real value
@@ -301,21 +301,21 @@ function initializeStateMapOverview() {
   //de-color a specific state, not using value?
   function deColor(stateName, value){
 
-    console.log("decoloring state for: " + stateName + "with value: " + value);
-    //console.log("   #geoID" + getGeoIdForState(stateName));
+    //console.log("decoloring state for: " + stateName + "with value: " + value);
+    ////console.log("   #geoID" + getGeoIdForState(stateName));
     var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
     currentState.attr("fill", colorScale(fatalities.get(getGeoIdForState(stateName))));
   }
 
   function color(stateName, side){
-    console.log("coloring state for: ", stateName);
-    //console.log("   #geoID" + getGeoIdForState(stateName));
+    //console.log("coloring state for: ", stateName);
+    ////console.log("   #geoID" + getGeoIdForState(stateName));
     var currentState = d3.select("#geoID" + getGeoIdForState(stateName));
     if(side == "right"){
-      console.log(" on right");
+      //console.log(" on right");
       currentState.attr("fill", rightStateColor);
     }else if(side == "left"){
-      console.log(" on left");
+      //console.log(" on left");
       currentState.attr("fill", leftStateColor);
     }else{
       console.error("did not color correctly, error")
@@ -323,10 +323,10 @@ function initializeStateMapOverview() {
 
   }
 
-  function printDataModel(){
-    console.log("current state data model");
-    console.log("Left State: " + stateDataModel.leftState
-      + ", " + "Right State: " + stateDataModel.rightState
-      + ", " + stateDataModel.leftStateIsSelected
-      + ", " + stateDataModel.rightStateIsSelected);
-  }
+  // function printDataModel(){
+    //console.log("current state data model");
+    //console.log("Left State: " + stateDataModel.leftState
+      // + ", " + "Right State: " + stateDataModel.rightState
+      // + ", " + stateDataModel.leftStateIsSelected
+      // + ", " + stateDataModel.rightStateIsSelected);
+  // }

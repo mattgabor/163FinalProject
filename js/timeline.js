@@ -135,8 +135,8 @@ d3.csv("data/timeline.csv", function(error, data) {
         })
         .attr("x",function(d){
           if(d.value <0){
-            //console.log("negative start point");
-            //console.log(width/2 - d.value*scaleFactor);
+            ////console.log("negative start point");
+            ////console.log(width/2 - d.value*scaleFactor);
             return width/2 + d.value*scaleFactor;
           }else{
             return width/2;
@@ -152,7 +152,7 @@ d3.csv("data/timeline.csv", function(error, data) {
         })
         .attr("height", 30)
         .attr("fill", function(d){
-          //console.log(d.value);
+          ////console.log(d.value);
           if(d.value <0){
             return "#1E824C";
           }else{
@@ -174,7 +174,7 @@ d3.csv("data/timeline.csv", function(error, data) {
     //   .attr("r", 2);
 }
 function updateTimeline(state, side){
-    //console.log("State before CSV " + state)
+    ////console.log("State before CSV " + state)
     d3.csv("data/timeline.csv", function(error, data) {
 
 
@@ -182,13 +182,13 @@ function updateTimeline(state, side){
 
     //console.table(nationalAverageFormatted)
 
-    //console.log("State after CSV " + state)
-    //console.log(getRowForState(state));
+    ////console.log("State after CSV " + state)
+    ////console.log(getRowForState(state));
 
 
     currentStateData = data[getRowForState(state)];
-    console.log("-------------")
-    console.log(currentStateData);
+    //console.log("-------------")
+    //console.log(currentStateData);
     currentStateDataFormatted = formatStateData(currentStateData);
 
     normalizedStateData = normalizeToAverage(currentStateDataFormatted, nationalAverageFormatted);
@@ -222,7 +222,7 @@ function updateTimeline(state, side){
       })
       .attr("height", 30)
       .attr("fill", function(d){
-        //console.log(d.value);
+        ////console.log(d.value);
         if(d.value <0){
           return "#1E824C";
         }else{

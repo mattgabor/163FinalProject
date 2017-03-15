@@ -16,7 +16,7 @@ var driverData;
         // d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"] = +d["Percentage Of Drivers Involved In Fatal Collisions Who Had Not Been Involved In Any Previous Accidents"];
         // d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"]                             = +d["Percentage Of Drivers Involved In Fatal Collisions Who Were Not Distracted"];
         // d["Start"]                                                = +d["Start"];
-       // console.log(d);
+       // //console.log(d);
       });
         driverData = data;
         create(data);
@@ -136,7 +136,7 @@ function create(data) {
           document.getElementById("XText").innerHTML = "Percentage Unemployed";
           // create new data
           setAttrFalse();
-          //console.log(attr);
+          ////console.log(attr);
           attr["percentage unemployement rate"] = true;
           dataset = create_data(driverData);
           update(dataset);
@@ -235,7 +235,7 @@ function create(data) {
     function update(dataset){
         //console(dataset);
 
-        // console.log(dataset[0].x);
+        // //console.log(dataset[0].x);
 
         scatterXScale = d3.scale.linear()
                   .domain([d3.min(dataset, function(d){
@@ -313,7 +313,7 @@ function create(data) {
         var term1 = 0;
         var term2 = 0;
         var x_value = 0;
-        // console.log(attr)
+        // //console.log(attr)
         // create x and y values
         for (var i = 0; i < n; i++) {
             y.push(driverData[i]["Number of drivers involved in fatal collisions per billion miles"]);
@@ -345,7 +345,7 @@ function create(data) {
         for (i = 0; i < x.length; i++) {
             yhat.push(b0 + (x[i] * b1));
         }
-        // console.log(x_mean)
+        // //console.log(x_mean)
         var data = [];
         for (i = 0; i < y.length; i++) {
             data.push({
@@ -373,7 +373,7 @@ function calculate_x_Value(data){
     }
     return value;
 }
-  // console.log(calculate_Pvalue(d1,d1.length,d2,d2,length));
+  // //console.log(calculate_Pvalue(d1,d1.length,d2,d2,length));
   // Checkbox
 
 // }
@@ -385,7 +385,7 @@ function updateScatter(lhs,rhs){
   document.getElementById("XText").innerHTML = "Percentage Unemployed";
   // create new data
   setAttrFalse();
-  //console.log(attr);
+  ////console.log(attr);
   attr["percentage unemployement rate"] = true;
   dataset = create_data(driverData);
   update(dataset);

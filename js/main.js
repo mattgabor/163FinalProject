@@ -60,8 +60,8 @@ $("#rightTimelineDropdown").change(function() {
 
 function updateDropdowns(leftState, rightState) {
 
-  console.log("updating", leftState)
-  console.log("updating", rightState)
+  //console.log("updating", leftState)
+  //console.log("updating", rightState)
 
   $("#leftTimelineDropdown select").val(leftState)
   $("#rightTimelineDropdown select").val(rightState)
@@ -70,7 +70,7 @@ function updateDropdowns(leftState, rightState) {
 }
 
 function updateAll(leftState, rightState) {
-  console.log("update all: " + leftState +", " + rightState);
+  //console.log("update all: " + leftState +", " + rightState);
   if(leftState != "null" && rightState != "null"){
     updateMap(leftState, rightState);
   }
