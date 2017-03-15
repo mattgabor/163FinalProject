@@ -233,7 +233,8 @@ select {
 }
 
 .scatterButton {
-  margin-left: 10px;
+  /*font-size: 20px;*/
+  /*margin-left: 30px;*/
 }
 
 .d3-tip {
