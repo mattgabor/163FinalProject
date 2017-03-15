@@ -9,7 +9,6 @@ drawRightRoadAssets();
 loadInitialRoadVizData(0, "#leftRoadViz", "left");
 loadInitialRoadVizData(1, "#rightRoadViz", "right");
 
-
 initializeStateMapOverview();
 
 
