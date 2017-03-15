@@ -60,28 +60,28 @@ d3.csv("data/timeline.csv", function(error, data) {
       .attr("transform", "translate(241,30)");
 
     currentSvg.append("g").append("text")
-        .text("1")
+        .text("10")
         .attr("class","axisLabel")
         .attr("transform", "translate(441,30)");
 
       currentSvg.append("g").append("text")
-        .text(".5")
+        .text("5")
         .attr("class","axisLabel")
         .attr("transform", "translate(341,30)");
 
 
       currentSvg.append("g").append("text")
-          .text("-1")
+          .text("-10")
           .attr("class","axisLabel")
           .attr("transform", "translate(41,30)");
 
         currentSvg.append("g").append("text")
-          .text("-.5")
+          .text("-5")
           .attr("class","axisLabel")
           .attr("transform", "translate(141,30)");
 
       var barTip = d3.tip()
-        .attr('class', 'd3-tip').html(function(d) { return "<strong style='color:yellow'>Year:</strong> <span style='color:white'>" + d.year + "</br> " + "</span><br><strong style='color:yellow'>Value: </strong> <span style='color:white'>" + (d.value).toFixed(2) + "</span>";});
+        .attr('class', 'd3-tip').html(function(d) { return "<strong style='color:yellow'>Year:</strong> <span style='color:white'>" + d.year + "</br> " + "</span><br><strong style='color:yellow'>Fatalities: </strong> <span style='color:white'>" + (d.value*10).toFixed(2) + "</span>";});
 
       barTip.direction('e')
       currentSvg.call(barTip);
