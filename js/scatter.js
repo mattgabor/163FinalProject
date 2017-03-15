@@ -121,6 +121,53 @@ function initializeScatter() {
           .attr("clip-path", "url(#chart-area)")
           .attr("class", "line");
 
+      // append Buttons
+      svg.append("foreignObject")
+        .attr("width", 600)
+        .attr("height", 100)
+        .attr("x", 180)
+        .attr("y", 40)
+        .append("xhtml:div")
+        .attr("class", "scatterButtons")
+        .html("<div class='btn-group' data-toggle='buttons'><label class='btn btn-primary active' id='percentageunemployementrate'><input type='radio' name='options' autocomplete='off' checked>Percentage Unemployed</label><label class='btn btn-primary' id='percentagegraduationrate'><input type='radio' name='options' autocomplete='off'>College Graduation Rate</label><label class='btn btn-primary' id='percentageofimmigrants'><input type='radio' name='options' autocomplete='off'>Percentage Immigrants</label></div>")
+        // .html("<button type='button' class='btn btn-primary scatterButton' id='percentageunemployementrate' style='float: right; margin-left: 10px'>Unemployement Rate</button><button type='button' class='btn btn-primary scatterButton' id='percentagegraduationrate' style='float: right; margin-left: 10px;'>College Graduation Rate</button><button type='button' class='btn btn-primary scatterButton' id='percentageofimmigrants' style='float: right;margin-left: 10px;'>Percent Immigrants</button>");
+
+        d3.select("#percentageunemployementrate")
+          .on("click", function(){
+            console.log("stuff")
+            document.getElementById("XText").innerHTML = "Percentage Unemployed";
+            // create new data
+            setAttrFalse();
+            //console.log(attr);
+            attr["percentage unemployement rate"] = true;
+            dataset = create_data(driverData);
+            update(dataset);
+            document.getElementById("rvalue").innerHTML = "r = 0.103: Very Weak Correlation";
+          });
+
+        d3.select("#percentagegraduationrate")
+          .on("click", function(){
+            document.getElementById("XText").innerHTML = "Percentage College Graduates";
+            // create new data
+            setAttrFalse();
+            attr["percentage graduation rate"] = true;
+            dataset = create_data(driverData);
+            update(dataset);
+            document.getElementById("rvalue").innerHTML = "r = -0.642: Strong Neg Correlation";
+          });
+
+        d3.select("#percentageofimmigrants")
+          .on("click", function(){
+            document.getElementById("XText").innerHTML = "Percentage Immigrants";
+            // create new data
+            setAttrFalse();
+            attr["percentage of immigrants"] = true;
+            dataset = create_data(driverData);
+            update(dataset);
+            document.getElementById("rvalue").innerHTML = "r = -0.495: Mild Neg Correlation";
+          });
+
+
       // append Axes ///////////////////////////
       svg.append("g")
           .attr("class", "x axis")
@@ -179,40 +226,6 @@ function initializeScatter() {
 
     update(dataset);
   }
-
-      d3.select("#percentageunemployementrate")
-        .on("click", function(){
-          document.getElementById("XText").innerHTML = "Percentage Unemployed";
-          // create new data
-          setAttrFalse();
-          //console.log(attr);
-          attr["percentage unemployement rate"] = true;
-          dataset = create_data(driverData);
-          update(dataset);
-          document.getElementById("rvalue").innerHTML = "r = 0.103: Very Weak Correlation";
-        });
-
-      d3.select("#percentagegraduationrate")
-        .on("click", function(){
-          document.getElementById("XText").innerHTML = "Percentage College Graduates";
-          // create new data
-          setAttrFalse();
-          attr["percentage graduation rate"] = true;
-          dataset = create_data(driverData);
-          update(dataset);
-          document.getElementById("rvalue").innerHTML = "r = -0.642: Strong Neg Correlation";
-        });
-
-      d3.select("#percentageofimmigrants")
-        .on("click", function(){
-          document.getElementById("XText").innerHTML = "Percentage Immigrants";
-          // create new data
-          setAttrFalse();
-          attr["percentage of immigrants"] = true;
-          dataset = create_data(driverData);
-          update(dataset);
-          document.getElementById("rvalue").innerHTML = "r = -0.495: Mild Neg Correlation";
-        });
 
 
       function setAttrFalse(){
