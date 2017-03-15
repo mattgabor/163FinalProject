@@ -7,6 +7,10 @@ body {
   position: relative;
 }
 
+.container-fluid {
+  width: 1450px !important;
+}
+
 #section1 {
   padding-top:50px;
   height:800px;
