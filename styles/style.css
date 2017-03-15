@@ -21,13 +21,13 @@ body {
 
 #section3 {
   padding-top:50px;
-  height:900px;
+  height:840px;
   color: #fff;
 }
    /*border: 2px solid green;}*/
 #section4 {
   padding-top:50px;
-  height:800px;
+  height:740px;
   color: #fff;
   margin-left: 75px;
   margin-right: 75px;
@@ -107,7 +107,7 @@ text.label {
   font-family: sans-serif;
   color: black;
   font-weight: 500;
-  margin: 30px 300px 0 300px;
+  margin: 20px 300px 0 300px;
 }
 
 /***** map styling *****/
