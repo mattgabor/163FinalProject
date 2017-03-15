@@ -84,5 +84,5 @@ function updateAll(leftState, rightState) {
     updateTimeline(rightState, "right");
     updateRoadVizData(getRowForState(rightState), "right");
   }
-
+  updateScatter(leftState,rightState);
 }
