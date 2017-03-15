@@ -78,8 +78,15 @@ function updateAll(leftState, rightState) {
   if(leftState != "null" && rightState != "null"){
     updateMap(leftState, rightState);
   }
-  updateTimeline(leftState, "left");
-  updateTimeline(rightState, "right");
-  updateRoadVizData(getRowForState(leftState), "left")
-  updateRoadVizData(getRowForState(rightState), "right")
+
+  if(leftState != "null"){
+    updateTimeline(leftState, "left");
+    updateRoadVizData(getRowForState(leftState), "left")
+  }
+
+  if (rightState != "null"){
+    updateTimeline(rightState, "right");
+    updateRoadVizData(getRowForState(rightState), "right");
+  }
+
 }

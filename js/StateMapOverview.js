@@ -232,12 +232,7 @@ function initializeStateMapOverview() {
         alert("Please deselect a state before selecting another one.");
       }
     }
-    console.log("current state data model");
-    console.log("Left State: " + stateDataModel.leftState
-      + ", " + "Right State: " + stateDataModel.rightState
-      + ", " + stateDataModel.leftStateIsSelected
-      + ", " + stateDataModel.rightStateIsSelected);
-
+    
   console.log("state before update")
   printDataModel();
 

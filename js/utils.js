@@ -110,29 +110,34 @@ function getRowForState(state){
   if(state == "USA"){return 51;}
 }
 
+//problem here is that currentStateData is null
 function formatStateData(currentStateData){
-  var data =[];
-  data[0] = {year:1994, value:currentStateData.y1994};
-  data[1] = {year:1995, value:currentStateData.y1995};
-  data[2] = {year:1996, value:currentStateData.y1996};
-  data[3] = {year:1997, value:currentStateData.y1997};
-  data[4] = {year:1998, value:currentStateData.y1998};
-  data[5] = {year:1999, value:currentStateData.y1999};
-  data[6] = {year:2000, value:currentStateData.y2000};
-  data[7] = {year:2001, value:currentStateData.y2001};
-  data[8] = {year:2002, value:currentStateData.y2002};
-  data[9] = {year:2003, value:currentStateData.y2003};
-  data[10] = {year:2004, value:currentStateData.y2004};
-  data[11] = {year:2005, value:currentStateData.y2005};
-  data[12] = {year:2006, value:currentStateData.y2006};
-  data[13] = {year:2007, value:currentStateData.y2007};
-  data[14] = {year:2008, value:currentStateData.y2008};
-  data[15] = {year:2009, value:currentStateData.y2009};
-  data[16] = {year:2010, value:currentStateData.y2010};
-  data[17] = {year:2011, value:currentStateData.y2011};
-  data[18] = {year:2012, value:currentStateData.y2012};
-  data[19] = {year:2013, value:currentStateData.y2013};
-  return data;
+  if(!currentStateData){
+    return null;
+  }else{
+    var data =[];
+    data[0] = {year:1994, value:currentStateData.y1994};
+    data[1] = {year:1995, value:currentStateData.y1995};
+    data[2] = {year:1996, value:currentStateData.y1996};
+    data[3] = {year:1997, value:currentStateData.y1997};
+    data[4] = {year:1998, value:currentStateData.y1998};
+    data[5] = {year:1999, value:currentStateData.y1999};
+    data[6] = {year:2000, value:currentStateData.y2000};
+    data[7] = {year:2001, value:currentStateData.y2001};
+    data[8] = {year:2002, value:currentStateData.y2002};
+    data[9] = {year:2003, value:currentStateData.y2003};
+    data[10] = {year:2004, value:currentStateData.y2004};
+    data[11] = {year:2005, value:currentStateData.y2005};
+    data[12] = {year:2006, value:currentStateData.y2006};
+    data[13] = {year:2007, value:currentStateData.y2007};
+    data[14] = {year:2008, value:currentStateData.y2008};
+    data[15] = {year:2009, value:currentStateData.y2009};
+    data[16] = {year:2010, value:currentStateData.y2010};
+    data[17] = {year:2011, value:currentStateData.y2011};
+    data[18] = {year:2012, value:currentStateData.y2012};
+    data[19] = {year:2013, value:currentStateData.y2013};
+    return data;
+  }
 }
 
 function normalizeToAverage(stateData, averageData){
