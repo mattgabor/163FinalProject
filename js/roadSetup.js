@@ -17,6 +17,7 @@ function drawLeftRoadAssets() {
     .attr("x", 80)
     .attr("y", 40)
     .attr("height", 600)
+    .attr("width", 387.23)
     .attr("id", "leftRoad")
 }
 
@@ -33,6 +34,7 @@ function drawRightRoadAssets() {
     .attr("x", 80)
     .attr("y", 40)
     .attr("height", 600)
+    .attr("width", 387.23)
     .attr("id", "rightRoad")
 }
 

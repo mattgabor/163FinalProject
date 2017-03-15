@@ -29,6 +29,7 @@ function drawCars(causeData, carData, svgSelector, direction, stateCode) {
     var car = carRotateG.append("image")
       .attr("xlink:href", "img/whiteCar.png")
       .attr("height", 50)
+      .attr("width", 24.51)
       .attr("x", d.x)
       .attr("y", d.y)
       .attr("id", "car" + (i + 1));
@@ -119,7 +120,7 @@ function setDestinations(stateNum, causeData, direction) {
   var orderOfExecution = [[6, 1, 7, 2, 8], [3, 9, 4], [5, 10]];
   var delays = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
   var durations = [3000, 4000, 5000, 6000, 7000, 6000, 7000, 8000, 9000, 10000]
-  
+
   var stateCarCount = causeData[stateNum].carCount;
   var allExecutions = [orderOfExecution[0], orderOfExecution[1], orderOfExecution[2]];
 
