@@ -33,7 +33,7 @@ var scatterSvg,
   // scatterWidth = 1024,
   // scatterHeight = 600,
   scatterMargin = {top: 20, right: 0, bottom: 100, left: 100};
-      scatterWidth = 1100 - scatterMargin.left - scatterMargin.right,
+      scatterWidth = 1000 - scatterMargin.left - scatterMargin.right,
       scatterHeight = 800 - scatterMargin.top - scatterMargin.bottom;
 
 var tip = d3.tip()
