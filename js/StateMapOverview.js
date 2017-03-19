@@ -182,8 +182,20 @@ function initializeStateMapOverview() {
       .on('click', function(d,i){
         stateClicked(stateName[d.id], fatalities.get(d.id));
       })
-      .on('mouseover', function(d,i){})
-      .on('mouseout', function(d,i){});
+      .on('mouseover', function(d,i){
+        console.log("stuff")
+        d3.select(this)
+          .style("cursor", "pointer")
+          .style("stroke-width", 2.5)
+          // .style("stroke", "white")
+
+      })
+      .on('mouseout', function(d,i){
+        d3.select(this)
+          .style("opacity", 1)
+          .style("stroke-width", 1)
+          .style("stroke", "white")
+      });
 
 
       // //console.log(defaultLeftState)
