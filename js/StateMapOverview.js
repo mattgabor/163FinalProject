@@ -94,6 +94,7 @@ function initializeStateMapOverview() {
    // pos legend
    svg.append("text")
      .attr("transform", "translate(850, 520)")
+     .attr("class", "legendTitle")
      .text("State Selection");
 
    var posLegend = svg.append("g")
@@ -123,6 +124,7 @@ function initializeStateMapOverview() {
     // hue legend
     svg.append("text")
       .attr("transform", "translate(850, 390)")
+      .attr("class", "legendTitle")
       .text("Deaths per 1B Miles");
 
     svg.append("g")
@@ -183,7 +185,6 @@ function initializeStateMapOverview() {
         stateClicked(stateName[d.id], fatalities.get(d.id));
       })
       .on('mouseover', function(d,i){
-        console.log("stuff")
         d3.select(this)
           .style("cursor", "pointer")
           .style("stroke-width", 2.5)

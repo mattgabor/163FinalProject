@@ -284,3 +284,7 @@ select {
   top: 0;
   left: 0;
 }
+
+.legendTitle {
+  font-size: 18px;
+}
