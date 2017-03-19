@@ -47,6 +47,39 @@ setAttrFalse();
 // attr['repeat'] = false;
 // attr['other'] = false;
 
+var scatterPosLegendColor = d3.scale.linear().range(["#F64747","#E27928"]);
+
+   var scatterLeg = ["Left State", "Right State"];
+
+   // pos legend
+   scatterSvg.append("text")
+     .attr("transform", "translate(850, 520)")
+     .text("State Selection");
+
+   var posLegend = scatterSvg.append("g")
+      .attr("class", "legend")
+      .attr("width", 140)
+      .attr("transform", "translate(850, 530)")
+    .attr("height", 200)
+      .selectAll("g")
+      .data(scatterPosLegendColor.domain().slice().reverse())
+      .enter()
+      .append("g")
+      .attr("transform", function(d, i) { return "translate(0," + i * 18 + ")"; });
+
+    posLegend.append("rect")
+      .attr("width", 15)
+      .attr("height", 15)
+      .style("fill", scatterPosLegendColor);
+
+    posLegend.append("text")
+      .data(scatterLeg)
+        .attr("class", "label")
+        .attr("x", 24)
+        .attr("y", 7)
+        .attr("dy", ".35em")
+        .text(function(d) { return d; });
+
 function create(data) {
     var numDataPoints = 1000;
 
@@ -214,13 +247,27 @@ function create(data) {
           return 12.5;
         }
       })
+      // var leftStateColor = "#e27928";
+      // var rightStateColor = "#f64747";
       // .attr("fill","white");
       .attr("fill", function(d){
-        if (d["state"] == scatterLeftState || d["state"] == scatterRightState){
-          return '#FFA500';
+        if (d["state"] == scatterLeftState){
+          return '#e27928';
+        }
+        else if(d["state"] == scatterRightState){
+          return '#f64747';
         }
         else{
           return '#000080';
+        }
+      })
+
+      .style("opacity", function(d){
+        if (d["state"] == scatterLeftState){
+          return 0.8;
+        }
+        else if(d["state"] == scatterRightState){
+          return 0.8;
         }
       });
 
@@ -296,11 +343,23 @@ function create(data) {
         })
         // .attr("fill","white");
         .attr("fill", function(d){
-          if (d["state"] == scatterLeftState || d["state"] == scatterRightState){
-            return '#FFA500';
+          if (d["state"] == scatterLeftState){
+            return '#e27928';
+          }
+          else if(d["state"] == scatterRightState){
+            return '#f64747';
           }
           else{
             return '#000080';
+          }
+
+        })
+        .style("opacity", function(d){
+          if (d["state"] == scatterLeftState){
+            return 0.8;
+          }
+          else if(d["state"] == scatterRightState){
+            return 0.8;
           }
         });
     }
