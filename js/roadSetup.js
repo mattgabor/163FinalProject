@@ -1,7 +1,7 @@
 // Initial viz setup
 var roadMargin = {top: 0, right: 10, bottom: 10, left: 10},
-    roadWidth = 500 - roadMargin.left - roadMargin.right,
-    roadHeight = 700 - roadMargin.top - roadMargin.bottom;
+    roadWidth = 650 - roadMargin.left - roadMargin.right,
+    roadHeight = 720 - roadMargin.top - roadMargin.bottom;
 
 function drawLeftRoadAssets() {
 
@@ -19,6 +19,18 @@ function drawLeftRoadAssets() {
     .attr("height", 600)
     .attr("width", 387.23)
     .attr("id", "leftRoad")
+
+
+   roadSvgContainer.append("text")
+     .attr("transform", "translate(440, 710)")
+     .attr("id", "carLegend")
+     .text("10% of Fatality Type");
+
+   roadSvgContainer.append("g").append("image")
+    .attr("xlink:href", "img/whiteCar.png")
+    .attr("height", 50)
+    .attr("width", 24.51)
+    .attr("transform", "translate(510, 630)")
 }
 
 function drawRightRoadAssets() {

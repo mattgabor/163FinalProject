@@ -47,38 +47,6 @@ setAttrFalse();
 // attr['repeat'] = false;
 // attr['other'] = false;
 
-var scatterPosLegendColor = d3.scale.linear().range(["#F64747","#E27928"]);
-
-   var scatterLeg = ["Left State", "Right State"];
-
-   // pos legend
-   scatterSvg.append("text")
-     .attr("transform", "translate(850, 520)")
-     .text("State Selection");
-
-   var posLegend = scatterSvg.append("g")
-      .attr("class", "legend")
-      .attr("width", 140)
-      .attr("transform", "translate(850, 530)")
-    .attr("height", 200)
-      .selectAll("g")
-      .data(scatterPosLegendColor.domain().slice().reverse())
-      .enter()
-      .append("g")
-      .attr("transform", function(d, i) { return "translate(0," + i * 18 + ")"; });
-
-    posLegend.append("rect")
-      .attr("width", 15)
-      .attr("height", 15)
-      .style("fill", scatterPosLegendColor);
-
-    posLegend.append("text")
-      .data(scatterLeg)
-        .attr("class", "label")
-        .attr("x", 24)
-        .attr("y", 7)
-        .attr("dy", ".35em")
-        .text(function(d) { return d; });
 
 function create(data) {
     var numDataPoints = 1000;
@@ -270,6 +238,39 @@ function create(data) {
           return 0.8;
         }
       });
+
+      var scatterPosLegendColor = d3.scale.linear().range(["#F64747","#E27928"]);
+
+         var scatterLeg = ["Left State", "Right State"];
+
+         // pos legend
+        //  scatterSvg.append("text")
+        //    .attr("transform", "translate(650, 520)")
+        //    .text("State Selection");
+
+         var posLegend = scatterSvg.append("g")
+            .attr("class", "legend")
+            .attr("width", 140)
+            .attr("transform", "translate(650, 530)")
+          .attr("height", 200)
+            .selectAll("g")
+            .data(scatterPosLegendColor.domain().slice().reverse())
+            .enter()
+            .append("g")
+            .attr("transform", function(d, i) { return "translate(0," + i * 18 + ")"; });
+
+          posLegend.append("rect")
+            .attr("width", 15)
+            .attr("height", 15)
+            .style("fill", scatterPosLegendColor);
+
+          posLegend.append("text")
+            .data(scatterLeg)
+              .attr("class", "label")
+              .attr("x", 24)
+              .attr("y", 7)
+              .attr("dy", ".35em")
+              .text(function(d) { return d; });
 
   update(dataset);
 }
